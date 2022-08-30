@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hu.gyuriczaadam.sprintformteszt.domain.model.TransactionItem
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetAllTransactionsUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionByQueryUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionsFromApiUseCase
@@ -25,8 +26,7 @@ class TransactionListViewModel @Inject constructor(
     private val _state = mutableStateOf(TransactionListState())
     val state:State<TransactionListState> = _state
 
-    private var getAlTransactionsJob:Job? = null
-
+    private var getTransactionsJob:Job? = null
 
     init {
         getTransactions()
@@ -36,7 +36,7 @@ class TransactionListViewModel @Inject constructor(
         when(event){
             is TransactionEvent.Order -> {
                 _state.value = TransactionListState(transactionTypes = event.transactionTypes)
-                Log.d("Teszt","Type: ${_state.value.transactionTypes}")
+                Log.d("Filter type:","type: ${event.transactionTypes}")
                     when(event.transactionTypes){
                         TransactionTypes.all -> getAllTransactions()
                         TransactionTypes.food -> getTransactionsByQuery("food",event.transactionTypes)
@@ -62,9 +62,6 @@ class TransactionListViewModel @Inject constructor(
             TransactionEvent.OnSearch -> {
                 getTransactionsByQuery(state.value.query,state.value.transactionTypes)
             }
-            is TransactionEvent.OnSearchFocusChange -> {
-                _state.value = TransactionListState(isHintVisible = !event.isFocused &&state.value.query.isBlank())
-            }
             TransactionEvent.OnRefresh -> {
                 getAllTransactions()
             }
@@ -81,7 +78,8 @@ class TransactionListViewModel @Inject constructor(
                  _state.value = TransactionListState(isLoading = true)
              }
              is Resource.Success -> {
-                    getAllTransactions()
+                 _state.value= TransactionListState(transaction = getAllTransactions())
+
                 }
             }
         }.launchIn(viewModelScope)
@@ -90,15 +88,17 @@ class TransactionListViewModel @Inject constructor(
         }
     }
 
-  private fun getAllTransactions(){
-        getAlTransactionsJob?.cancel()
-        getAlTransactionsJob = getAllTransactionsUseCase().onEach { result->
-            _state.value = TransactionListState(transaction = result )
+  private fun getAllTransactions():List<TransactionItem>{
+        getTransactionsJob?.cancel()
+     getTransactionsJob = getAllTransactionsUseCase().onEach { result->
+            _state.value = TransactionListState(transaction = result)
         }.launchIn(viewModelScope)
+      return _state.value.transaction
     }
 
     private fun getTransactionsByQuery(query:String,transactionTypes: TransactionTypes){
-        getTransactionByQueryUseCase(query).onEach { result->
+        getTransactionsJob?.cancel()
+        getTransactionsJob =  getTransactionByQueryUseCase(query).onEach { result->
             _state.value = TransactionListState(transaction = result , transactionTypes =transactionTypes)
         }.launchIn(viewModelScope)
     }
