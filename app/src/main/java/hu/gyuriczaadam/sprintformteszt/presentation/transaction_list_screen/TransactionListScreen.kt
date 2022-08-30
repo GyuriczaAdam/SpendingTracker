@@ -2,7 +2,6 @@ package hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen.com
 
 import android.util.Log
 import androidx.compose.animation.*
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,7 +12,6 @@ import androidx.compose.material.icons.filled.Sort
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -24,6 +22,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import hu.gyuriczaadam.sprintformteszt.R
+import hu.gyuriczaadam.sprintformteszt.presentation.Screen
 import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
 import hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen.TransactionEvent
 import hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen.TransactionListViewModel
@@ -41,10 +40,13 @@ fun TransactionListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                   //
+                   navController.navigate(
+                       Screen.AddEditTransactionScreen.route
+                   )
                 },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
+                //TODO:STRING RESOURCE
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
             }
         },
@@ -71,6 +73,7 @@ fun TransactionListScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Sort,
+                    //TODO:STRING RESOURCE
                     contentDescription = "Sort"
                 )
             }
@@ -124,7 +127,10 @@ fun TransactionListScreen(
         ) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(state.transaction){transaction->
-                    TrancationItem(transactionItem = transaction, onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth())
+                    TrancationItem(transactionItem = transaction, onClick = {
+                        navController.navigate(
+                            Screen.AddEditTransactionScreen.route
+                        ) }, modifier = Modifier.fillMaxWidth())
                 }
             }
         }

@@ -8,7 +8,7 @@ import hu.gyuriczaadam.sprintformteszt.data.local.entities.TransactionListEntity
 
 @Database(
     entities = [TransactionListEntity::class],
-    version = 2
+    version = 3
 )
 abstract class TransactionsDatabase :RoomDatabase(){
     abstract val transactionDao:TransactionDao

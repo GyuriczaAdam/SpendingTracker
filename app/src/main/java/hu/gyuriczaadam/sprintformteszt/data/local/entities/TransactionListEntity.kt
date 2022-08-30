@@ -10,7 +10,7 @@ data class TransactionListEntity(
     val category: String,
     val currency: String,
     @PrimaryKey
-    val id: Int,
+    val id: Int ? = null,
     val paid: String,
     val sum: Int,
     val summary: String
@@ -23,3 +23,5 @@ fun TransactionListEntity.toTransacrtionItem():TransactionItem{
         currency = currency
     )
 }
+
+class InvalidTransactionException(message: String): Exception(message)

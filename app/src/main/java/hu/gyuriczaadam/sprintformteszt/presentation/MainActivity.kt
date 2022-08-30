@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen.AddEditTransactionScreen
 import hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen.components.TransactionListScreen
 import hu.gyuriczaadam.sprintformteszt.presentation.ui.theme.SprintFormTesztTheme
 
@@ -24,6 +25,9 @@ class MainActivity : ComponentActivity() {
                         composable(route = Screen.TransactionListScreen.route){
                             TransactionListScreen(navController = navController)
                    }
+                    composable(route=Screen.AddEditTransactionScreen.route){
+                        AddEditTransactionScreen(navController = navController)
+                    }
                 }
             }
         }
