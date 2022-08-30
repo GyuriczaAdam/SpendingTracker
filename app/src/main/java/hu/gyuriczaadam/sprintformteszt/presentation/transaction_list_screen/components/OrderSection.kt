@@ -32,11 +32,6 @@ fun OrderSection(
                 onSelect = { onOrderChange(TransactionOrder.Date(transactionOrder.orderType)) }
             )
             Spacer(modifier = Modifier.width(8.dp))
-            DefaultRadioButton(
-                text = "Color",
-                selected = transactionOrder is TransactionOrder.Color,
-                onSelect = { onOrderChange(TransactionOrder.Color(transactionOrder.orderType)) }
-            )
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row(

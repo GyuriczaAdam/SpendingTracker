@@ -28,6 +28,22 @@ class TransactionListViewModel @Inject constructor(
 
     }
 
+    fun onEvent(event: TransactionEvent){
+        when(event){
+            is TransactionEvent.Order -> {
+                if(state.value.transactionOrder::class == event.transactionOrder::class && state.value.transactionOrder.orderType == event.transactionOrder.orderType){
+                    return
+                }
+                getTransactions()
+            }
+            TransactionEvent.ToggleOrderSection -> {
+                _state.value = state.value.copy(
+                    isOrderSectionVisible = !state.value.isOrderSectionVisible
+                )
+            }
+        }
+    }
+
     private fun getTransactions(){
      val job = getTransactionsFromApiUseCase().onEach { result->
          when(result){
