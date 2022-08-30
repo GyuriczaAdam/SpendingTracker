@@ -6,7 +6,7 @@ import hu.gyuriczaadam.sprintformteszt.util.UIText
 import kotlinx.coroutines.flow.flow
 import okio.IOException
 import hu.gyuriczaadam.sprintformteszt.R
-import hu.gyuriczaadam.sprintformteszt.data.remote.transaction_dto.toTransactionEntity
+import hu.gyuriczaadam.sprintformteszt.data.mapper.toTransactionEntity
 import retrofit2.HttpException
 import javax.inject.Inject
 
