@@ -38,7 +38,7 @@ fun TransactionListScreen(
         Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(state.transaction){transaction->
-                TrancationItem(transactionListModel = transaction, onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth())
+                TrancationItem(transactionItem = transaction, onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth())
             }
         }
     }
