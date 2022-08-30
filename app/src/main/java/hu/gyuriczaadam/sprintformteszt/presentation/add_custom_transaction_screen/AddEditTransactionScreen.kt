@@ -9,9 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import hu.gyuriczaadam.sprintformteszt.R
 import hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen.components.TransparentHintTextField
 import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
 import hu.gyuriczaadam.sprintformteszt.util.TestTags
@@ -27,7 +29,7 @@ fun AddEditTransactionScreen(
     val transactionAmountState = viewModel.transactionAmount.value
     val transactionTypeState = viewModel.transactionType.value
     val scaffoldState = rememberScaffoldState()
-    
+
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when(event) {
@@ -50,8 +52,7 @@ fun AddEditTransactionScreen(
                 },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
-                //TODO:STRING RESOURCE
-                Icon(imageVector = Icons.Default.Save, contentDescription = "Save")
+                Icon(imageVector = Icons.Default.Save, contentDescription = stringResource(R.string.save_costume_transaction))
             }
         },
         scaffoldState = scaffoldState

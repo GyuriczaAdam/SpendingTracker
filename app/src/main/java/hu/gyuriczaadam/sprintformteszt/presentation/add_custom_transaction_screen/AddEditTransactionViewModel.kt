@@ -1,5 +1,6 @@
 package hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.runtime.mutableStateOf
@@ -10,13 +11,13 @@ import androidx.room.PrimaryKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.gyuriczaadam.sprintformteszt.data.local.entities.InvalidTransactionException
 import hu.gyuriczaadam.sprintformteszt.data.local.entities.TransactionListEntity
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionByIdUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionByQueryUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.InsertTransactionUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 
@@ -26,7 +27,7 @@ import javax.inject.Inject
 class AddEditTransactionViewModel @Inject
 constructor(
     private val insertTransactionUseCase: InsertTransactionUseCase,
-    private val getTransactionByQueryUseCase: GetTransactionByQueryUseCase,
+    private val getTransactionByIdUseCase: GetTransactionByIdUseCase,
     savedStateHandle: SavedStateHandle
 ):ViewModel(){
     private val _transactionTitle = mutableStateOf(TransactionTextFieldState(
@@ -35,12 +36,12 @@ constructor(
     val transactionTitle:State<TransactionTextFieldState> = _transactionTitle
 
     private val _transactionType = mutableStateOf(TransactionTextFieldState(
-        hint = "Enter  transaction title..."
+        hint = "Enter  transaction type..."
     ))
     val transactionType:State<TransactionTextFieldState> = _transactionType
 
     private val _transactionAmount = mutableStateOf(TransactionTextFieldState(
-        hint = "Enter  transaction title..."
+        hint = "Enter  transaction amount"
     ))
     val transactionAmount:State<TransactionTextFieldState> = _transactionAmount
 
@@ -49,27 +50,31 @@ constructor(
 
     private var currentTransactionId:Int? = null
     init {
-      /*  savedStateHandle.get<Int>("transactionId")?.let { transactionId ->
+        savedStateHandle.get<Int>("transactionId")?.let { transactionId ->
+            Log.d("ID","ID: $transactionId")
             if(transactionId != -1) {
-                viewModelScope.launch {
-                    getTransactionByQueryUseCase(transactionId.toString())?.also { transaction ->
-                        currentTransactionId = transaction.id
-                        _noteTitle.value = noteTitle.value.copy(
-                            text = note.title,
-                            isHintVisible = false
-                        )
-                        _noteContent.value = _noteContent.value.copy(
-                            text = note.content,
-                            isHintVisible = false
-                        )
-                        _noteColor.value = note.color
-                    }
-                }
+               viewModelScope.launch {
+                   getTransactionByIdUseCase(transactionId)?.also { transaction ->
+                       currentTransactionId = transaction.id
+                       _transactionTitle.value = transactionTitle.value.copy(
+                           text = transaction.summary,
+                           isHintVisible = false
+                       )
+                       _transactionType.value = transactionType.value.copy(
+                           text = transaction.category,
+                           isHintVisible = false
+                       )
+                       _transactionAmount.value = transactionAmount.value.copy(
+                           text = transaction.sum.toString(),
+                           isHintVisible = false
+                       )
+                   }
+               }
             }
-        }*/
+        }
     }
     //TODO:REFACTOOOR!!
-    val sdf = SimpleDateFormat("dd/M/yyyy")
+    val sdf = SimpleDateFormat("yyyy-MM-dd")
     val currentDate = sdf.format(Date())
 
     fun onEvent(event: AddEditTransactionEvent){
@@ -111,7 +116,7 @@ constructor(
                             transactionListEntity = TransactionListEntity(
                                 category = transactionType.value.text,
                                 currency = "HUF",
-                                id = null,
+                                id = currentTransactionId,
                                 paid = currentDate,
                                 sum = transactionAmount.value.text.toInt(),
                                 summary = transactionTitle.value.text

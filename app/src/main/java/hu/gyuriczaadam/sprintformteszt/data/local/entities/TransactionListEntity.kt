@@ -20,7 +20,8 @@ fun TransactionListEntity.toTransacrtionItem():TransactionItem{
         summary = summary,
         paid = paid,
         sum = sum,
-        currency = currency
+        currency = currency,
+        id = id!!
     )
 }
 

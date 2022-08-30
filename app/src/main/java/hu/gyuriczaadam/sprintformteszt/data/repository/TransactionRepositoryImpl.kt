@@ -24,6 +24,10 @@ class TransactionRepositoryImpl(
         }
     }
 
+    override suspend fun getTransactionById(id: Int): TransactionListEntity? {
+        return transactionDao.getTransactionById(id)
+    }
+
     override suspend fun insertTransaction(transactionListEntity: TransactionListEntity) {
         transactionDao.insertTransaction(transactionListEntity)
     }

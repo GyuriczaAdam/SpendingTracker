@@ -74,7 +74,7 @@ fun TransactionListScreen(
                 Icon(
                     imageVector = Icons.Default.Sort,
                     //TODO:STRING RESOURCE
-                    contentDescription = "Sort"
+                    contentDescription = stringResource(R.string.sort_content_dec)
                 )
             }
 
@@ -91,7 +91,6 @@ fun TransactionListScreen(
                     .testTag(TestTags.ORDER_SECTION),
                 transactionType = state.transactionTypes,
                 onClick = {
-                    Log.d("Teszt","Type $it")
                     viewModel.onEvent(TransactionEvent.Order(it))
                 }
             )
@@ -129,7 +128,7 @@ fun TransactionListScreen(
                 items(state.transaction){transaction->
                     TrancationItem(transactionItem = transaction, onClick = {
                         navController.navigate(
-                            Screen.AddEditTransactionScreen.route
+                            Screen.AddEditTransactionScreen.route+"?transactionId=${transaction.id}"
                         ) }, modifier = Modifier.fillMaxWidth())
                 }
             }
