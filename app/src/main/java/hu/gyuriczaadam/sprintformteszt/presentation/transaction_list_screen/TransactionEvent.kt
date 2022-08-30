@@ -7,6 +7,5 @@ sealed class TransactionEvent{
     object ToggleOrderSection: TransactionEvent()
     data class OnQueryChange(val query: String) : TransactionEvent()
     object OnSearch : TransactionEvent()
-    data class OnSearchFocusChange(val isFocused: Boolean): TransactionEvent()
     object OnRefresh:TransactionEvent()
 }

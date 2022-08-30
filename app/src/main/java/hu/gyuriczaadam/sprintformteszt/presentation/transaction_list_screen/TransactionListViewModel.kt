@@ -52,9 +52,7 @@ class TransactionListViewModel @Inject constructor(
                     }
             }
             TransactionEvent.ToggleOrderSection -> {
-                _state.value = state.value.copy(
-                    isOrderSectionVisible = !state.value.isOrderSectionVisible
-                )
+                _state.value = TransactionListState(isOrderSectionVisible = !state.value.isOrderSectionVisible)
             }
             is TransactionEvent.OnQueryChange -> {
                 _state.value = TransactionListState(query = event.query)
@@ -79,7 +77,6 @@ class TransactionListViewModel @Inject constructor(
              }
              is Resource.Success -> {
                  _state.value= TransactionListState(transaction = getAllTransactions())
-
                 }
             }
         }.launchIn(viewModelScope)
@@ -89,7 +86,7 @@ class TransactionListViewModel @Inject constructor(
     }
 
   private fun getAllTransactions():List<TransactionItem>{
-        getTransactionsJob?.cancel()
+     getTransactionsJob?.cancel()
      getTransactionsJob = getAllTransactionsUseCase().onEach { result->
             _state.value = TransactionListState(transaction = result)
         }.launchIn(viewModelScope)
