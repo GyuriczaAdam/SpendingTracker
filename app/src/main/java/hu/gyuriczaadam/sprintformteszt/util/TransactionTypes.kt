@@ -1,6 +1,6 @@
 package hu.gyuriczaadam.sprintformteszt.util
 
-sealed class TransactionTypes{
+sealed class TransactionTypes(){
     object housing : TransactionTypes()
     object travel : TransactionTypes()
     object food : TransactionTypes()

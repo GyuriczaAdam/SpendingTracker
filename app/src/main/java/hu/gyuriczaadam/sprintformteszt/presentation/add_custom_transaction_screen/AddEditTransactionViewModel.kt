@@ -14,6 +14,8 @@ import hu.gyuriczaadam.sprintformteszt.data.local.entities.TransactionListEntity
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionByIdUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionByQueryUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.InsertTransactionUseCase
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.TransactionTypesListUseCase
+
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -28,6 +30,7 @@ class AddEditTransactionViewModel @Inject
 constructor(
     private val insertTransactionUseCase: InsertTransactionUseCase,
     private val getTransactionByIdUseCase: GetTransactionByIdUseCase,
+    private val transactionTypesListUseCase: TransactionTypesListUseCase,
     savedStateHandle: SavedStateHandle
 ):ViewModel(){
     private val _transactionTitle = mutableStateOf(TransactionTextFieldState(
@@ -121,7 +124,8 @@ constructor(
                                 paid = currentDate,
                                 sum = transactionAmount.value.text.toInt(),
                                 summary = transactionTitle.value.text
-                            )
+                            ),
+                            transactionTypesListUseCase()
                         )
                         _eventFlow.emit(UiEvent.SaveNote)
                     }catch (e:InvalidTransactionException){
