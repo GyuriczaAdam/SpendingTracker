@@ -1,27 +1,26 @@
 package hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import hu.gyuriczaadam.sprintformteszt.R
 import hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen.components.TransparentHintTextField
 import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
-import hu.gyuriczaadam.sprintformteszt.util.TestTags
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -88,7 +87,7 @@ fun AddEditTransactionScreen(
                 TransparentHintTextField(
                     text = transactionTitleState.text,
                     hint = transactionTitleState.hint,
-                    imageVector = Icons.Default.Check,
+                    imageVector = Icons.Default.Star,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text
                     ),
@@ -104,10 +103,11 @@ fun AddEditTransactionScreen(
                 )
 
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
+
                 TransparentHintTextField(
                     text = transactionTypeState.text,
                     hint = transactionTypeState.hint,
-                    imageVector = Icons.Default.Check,
+                    imageVector = Icons.Default.Checklist,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text
                     ),
@@ -125,7 +125,7 @@ fun AddEditTransactionScreen(
                 TransparentHintTextField(
                     text = transactionAmountState.text,
                     hint = transactionAmountState.hint,
-                    imageVector = Icons.Default.Check,
+                    imageVector = Icons.Default.CreditCard,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number
                     ),
