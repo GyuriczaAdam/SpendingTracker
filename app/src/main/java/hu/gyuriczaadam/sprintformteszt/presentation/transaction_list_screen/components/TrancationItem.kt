@@ -44,19 +44,18 @@ fun TrancationItem(
             Row(
                 modifier = Modifier.weight(1f)
             ) {
-
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 Column(
                     modifier = Modifier.align(CenterVertically)
                 ) {
                     Text(text = transactionItem.summary,
-                        style = MaterialTheme.typography.body1,
+                        style = MaterialTheme.typography.h4,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                         )
-                    Spacer(modifier = Modifier.width(spacing.spaceSmall))
+                    Spacer(modifier = Modifier.height(spacing.spaceMedium))
                     Text(text = transactionItem.paid,
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.body1
                         )
                 }
             }
@@ -65,11 +64,11 @@ fun TrancationItem(
                 Spacer(modifier = Modifier.width(spacing.spaceSmall))
 
                 Text(text = transactionItem.sum.toString(),
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.h5
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceExtraSmall))
                 Text(text = transactionItem.currency,
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.h5
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceSmall))
             }

@@ -36,7 +36,7 @@ class TransactionListViewModel @Inject constructor(
         when(event){
             is TransactionEvent.Order -> {
                 _state.value = TransactionListState(transactionTypes = event.transactionTypes)
-                Log.d("Filter type:","type: ${event.transactionTypes}")
+
                     when(event.transactionTypes){
                         TransactionTypes.all -> getAllTransactions()
                         TransactionTypes.food -> getTransactionsByQuery("food",event.transactionTypes)
@@ -52,7 +52,7 @@ class TransactionListViewModel @Inject constructor(
                     }
             }
             TransactionEvent.ToggleOrderSection -> {
-                _state.value = TransactionListState(isOrderSectionVisible = !state.value.isOrderSectionVisible)
+                _state.value = TransactionListState(isOrderSectionVisible = !state.value.isOrderSectionVisible , transaction = state.value.transaction, transactionTypes = state.value.transactionTypes)
             }
             is TransactionEvent.OnQueryChange -> {
                 _state.value = TransactionListState(query = event.query)

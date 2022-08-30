@@ -16,7 +16,7 @@ fun TransactionDtoItem.toTransactionEntity(): TransactionListEntity {
         category = category,
         currency= currency,
         id = id.toInt(),
-        paid = paid,
+        paid = paid.substring(0,10),
         sum = sum,
         summary = summary
     )

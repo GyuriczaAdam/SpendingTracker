@@ -43,8 +43,7 @@ fun TransactionListScreen(
                 },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
-                //TODO:STRING RESOURCE
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
+                Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(R.string.add_button_desc))
             }
         },
         scaffoldState = scaffoldState
@@ -70,7 +69,6 @@ fun TransactionListScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Sort,
-                    //TODO:STRING RESOURCE
                     contentDescription = stringResource(R.string.sort_content_dec)
                 )
             }
@@ -136,6 +134,13 @@ fun TransactionListScreen(
     ) {
         when {
             state.isLoading -> CircularProgressIndicator()
+            state.transaction.isEmpty()->{
+                Text(
+                    text = stringResource(id = R.string.no_results),
+                    style = MaterialTheme.typography.body1,
+                    textAlign = TextAlign.Center
+                )
+                }
             }
         }
     }
