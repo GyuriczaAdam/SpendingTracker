@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import hu.gyuriczaadam.sprintformteszt.domain.model.local.TransactionListEntity
+import hu.gyuriczaadam.sprintformteszt.data.local.entities.TransactionListEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

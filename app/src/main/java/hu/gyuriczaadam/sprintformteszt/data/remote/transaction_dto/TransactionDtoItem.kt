@@ -1,6 +1,6 @@
 package hu.gyuriczaadam.sprintformteszt.data.remote.transaction_dto
 
-import hu.gyuriczaadam.sprintformteszt.domain.model.remote.TransactionListModel
+import hu.gyuriczaadam.sprintformteszt.data.local.entities.TransactionListEntity
 
 data class TransactionDtoItem(
     val category: String,
@@ -11,11 +11,11 @@ data class TransactionDtoItem(
     val summary: String
 )
 
-fun TransactionDtoItem.toTransactionListModel(): TransactionListModel {
-    return TransactionListModel(
+fun TransactionDtoItem.toTransactionEntity(): TransactionListEntity {
+    return TransactionListEntity(
         category = category,
         currency= currency,
-        id = id,
+        id = id.toInt(),
         paid = paid,
         sum = sum,
         summary = summary
