@@ -25,8 +25,12 @@ class TransactionListViewModel @Inject constructor(
     private fun getTransactions(){
      val job = getTransactionsFromApiUseCase().onEach { result->
          when(result){
-             is Resource.Error -> TransactionListState(error = result.message.toString())
-             is Resource.Loading -> TransactionListState(isLoading = true)
+             is Resource.Error -> {
+                 _state.value = TransactionListState(error = result.message.toString())
+             }
+             is Resource.Loading -> {
+                 _state.value = TransactionListState(isLoading = true)
+             }
              is Resource.Success -> {
                  _state.value = TransactionListState(transaction = result.data!!)
                 }

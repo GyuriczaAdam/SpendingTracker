@@ -49,13 +49,13 @@ fun TransactionListScreen(
     ){
         when{
             state.isLoading-> CircularProgressIndicator()
-            state.transaction.isEmpty()->{
+          /*  state.transaction.isEmpty()->{
                 Text(
                     text = stringResource(id = R.string.no_results),
                     style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Center
                 )
-            }
+            }*/
         }
     }
 }

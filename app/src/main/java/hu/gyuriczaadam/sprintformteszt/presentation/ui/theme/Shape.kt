@@ -1,4 +1,4 @@
-package hu.gyuriczaadam.sprintformteszt.ui.theme
+package hu.gyuriczaadam.sprintformteszt.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

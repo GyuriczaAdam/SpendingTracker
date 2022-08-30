@@ -1,4 +1,4 @@
-package hu.gyuriczaadam.sprintformteszt.ui.theme
+package hu.gyuriczaadam.sprintformteszt.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -11,10 +11,10 @@ private val DarkColorPalette = darkColors(
     primary = BrightGreen,
     primaryVariant = DarkGreen,
     secondary = Orange,
-    background = Color.White,
-    onBackground = DarkGray,
-    surface = Color.White,
-    onSurface = DarkGray,
+    background = MediumGray,
+    onBackground = TextWhite,
+    surface = LightGray,
+    onSurface = TextWhite,
     onPrimary = Color.White,
     onSecondary = Color.White,
 )
@@ -23,10 +23,10 @@ private val LightColorPalette = lightColors(
     primary = BrightGreen,
     primaryVariant = DarkGreen,
     secondary = Orange,
-    background = MediumGray,
-    onBackground = TextWhite,
-    surface = LightGray,
-    onSurface = TextWhite,
+    background = Color.White,
+    onBackground = DarkGray,
+    surface = Color.White,
+    onSurface = DarkGray,
     onPrimary = Color.White,
     onSecondary = Color.White,
 )
