@@ -124,6 +124,7 @@ fun TransactionListScreen(
                         navController.navigate(
                             Screen.AddEditTransactionScreen.route+"?transactionId=${transaction.id}"
                         ) }, modifier = Modifier.fillMaxWidth(),
+                        imageVector = transaction.imageVector
                         )
                 }
             }

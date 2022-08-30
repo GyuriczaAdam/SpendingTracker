@@ -28,6 +28,7 @@ import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
 fun TrancationItem(
     transactionItem: TransactionItem,
     onClick: ()->Unit,
+    imageVector: ImageVector,
     modifier: Modifier
 ) {
     val spacing = LocalSpacing.current
@@ -53,7 +54,7 @@ fun TrancationItem(
                 modifier = Modifier.weight(1f)
             ) {
                 Image(
-                    imageVector = Icons.Default.FoodBank,
+                    imageVector = imageVector,
                     contentDescription = transactionItem.type,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
