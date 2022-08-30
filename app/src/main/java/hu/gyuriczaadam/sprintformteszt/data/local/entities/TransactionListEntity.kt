@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import hu.gyuriczaadam.sprintformteszt.domain.model.TransactionItem
 
-//TODO: Make wrapper package
 @Entity
 data class TransactionListEntity(
     val category: String,
@@ -15,14 +14,6 @@ data class TransactionListEntity(
     val sum: Int,
     val summary: String
     )
-fun TransactionListEntity.toTransacrtionItem():TransactionItem{
-    return TransactionItem(
-        summary = summary,
-        paid = paid,
-        sum = sum,
-        currency = currency,
-        id = id!!
-    )
-}
+
 
 class InvalidTransactionException(message: String): Exception(message)

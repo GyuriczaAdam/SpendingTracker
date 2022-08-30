@@ -82,7 +82,6 @@ fun AddEditTransactionScreen(
                 .fillMaxSize()
                 .padding(localSpacing.spaceLarge)
             ) {
-
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
                 TransparentHintTextField(
                     text = transactionTitleState.text,
@@ -99,7 +98,7 @@ fun AddEditTransactionScreen(
                     },
                     isHintVisible = transactionTitleState.isHintVisible,
                     singleLine = true,
-                    textStyle = MaterialTheme.typography.h5
+                    textStyle = MaterialTheme.typography.body1
                 )
 
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))

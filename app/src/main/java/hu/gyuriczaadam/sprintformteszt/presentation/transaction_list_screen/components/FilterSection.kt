@@ -14,7 +14,6 @@ fun OrderSection(
     onClick:(TransactionTypes)->Unit
 ) {
     //TODO: add texts to string resources
-    //TODO:format date
     Column(
         modifier = modifier
     ) {

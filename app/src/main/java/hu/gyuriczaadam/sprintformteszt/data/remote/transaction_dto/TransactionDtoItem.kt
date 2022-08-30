@@ -11,13 +11,3 @@ data class TransactionDtoItem(
     val summary: String
 )
 
-fun TransactionDtoItem.toTransactionEntity(): TransactionListEntity {
-    return TransactionListEntity(
-        category = category,
-        currency= currency,
-        id = id.toInt(),
-        paid = paid.substring(0,10),
-        sum = sum,
-        summary = summary
-    )
-}

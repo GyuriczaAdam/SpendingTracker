@@ -11,6 +11,7 @@ import hu.gyuriczaadam.sprintformteszt.data.local.data_source.TransactionsDataba
 import hu.gyuriczaadam.sprintformteszt.data.remote.TransactionApi
 import hu.gyuriczaadam.sprintformteszt.data.repository.TransactionRepositoryImpl
 import hu.gyuriczaadam.sprintformteszt.domain.repositories.TransactionRepository
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -52,4 +53,18 @@ object AppModule {
             .fallbackToDestructiveMigration()
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideTransactionUseCases(repository: TransactionRepository):TransactionUseCases{
+        return TransactionUseCases(
+            getAllTransactionsUseCase = GetAllTransactionsUseCase(repository),
+            getTransactionByIdUseCase = GetTransactionByIdUseCase(repository),
+            getTransactionByQueryUseCase = GetTransactionByQueryUseCase(repository),
+            getTransactionsFromApiUseCase = GetTransactionsFromApiUseCase(repository),
+            insertTransactionUseCase = InsertTransactionUseCase(repository),
+            transactionTypesListUseCase = TransactionTypesListUseCase(repository)
+        )
+    }
+
 }
