@@ -35,7 +35,7 @@ fun TransactionListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                   // navController.navigate(Screen.AddEditNoteScreen.route)
+                   //
                 },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
@@ -86,6 +86,21 @@ fun TransactionListScreen(
                 }
             )
         }
+        Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
+        SearchTextField(
+            text = "",
+            hint = stringResource(R.string.transaction_search_text),
+            onValueChange = {
+
+            },
+            shouldShowHint = true,
+            onSearch = {
+
+            },
+            onFocusChanged = {
+
+            })
+
         Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(state.transaction){transaction->

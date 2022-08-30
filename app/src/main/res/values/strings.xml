@@ -8,4 +8,6 @@
     <string name="transaction_sum_text">sum</string>
     <string name="transaction_currency_text">currency</string>
     <string name="no_results">no results</string>
+    <string name="search_id">search</string>
+    <string name="transaction_search_text">Search transactions...</string>
 </resources>
