@@ -5,5 +5,6 @@ data class TransactionItem(
     val paid: String,
     val sum: Int,
     val currency: String,
-    val id:Int
+    val id:Int,
+    val type:String
 )

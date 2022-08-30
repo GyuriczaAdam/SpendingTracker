@@ -23,7 +23,6 @@ fun TransparentHintTextField(
     text: String,
     hint: String,
     imageVector: ImageVector,
-    isHintVisible: Boolean = true,
     keyboardOptions: KeyboardOptions,
     onValueChange: (String) -> Unit,
     textStyle: TextStyle = TextStyle(),

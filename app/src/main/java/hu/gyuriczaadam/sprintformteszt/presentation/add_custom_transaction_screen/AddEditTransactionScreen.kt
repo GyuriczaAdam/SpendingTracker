@@ -96,7 +96,6 @@ fun AddEditTransactionScreen(
                     onFocusChange = {
                         viewModel.onEvent(AddEditTransactionEvent.ChangeTransactionTitelFocus(it))
                     },
-                    isHintVisible = transactionTitleState.isHintVisible,
                     singleLine = true,
                     textStyle = MaterialTheme.typography.body1
                 )
@@ -116,7 +115,6 @@ fun AddEditTransactionScreen(
                     onFocusChange = {
                         viewModel.onEvent(AddEditTransactionEvent.ChangeTransactionTypeFocus(it))
                     },
-                    isHintVisible = transactionTypeState.isHintVisible,
                     textStyle = MaterialTheme.typography.body1,
                 )
 
@@ -134,7 +132,6 @@ fun AddEditTransactionScreen(
                     onFocusChange = {
                         viewModel.onEvent(AddEditTransactionEvent.ChangeAmountFocus(it))
                     },
-                    isHintVisible = transactionAmountState.isHintVisible,
                     textStyle = MaterialTheme.typography.body1,
                 )
             }

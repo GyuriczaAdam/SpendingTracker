@@ -10,7 +10,8 @@ fun TransactionListEntity.toTransacrtionItem(): TransactionItem {
         paid = paid,
         sum = sum,
         currency = currency,
-        id = id!!
+        id = id!!,
+        type = category
     )
 }
 
