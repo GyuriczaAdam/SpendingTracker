@@ -1,8 +1,8 @@
-package hu.gyuriczaadam.sprintformteszt.data.remote.transaction_dto
+package hu.gyuriczaadam.sprintformteszt.domain.model.remote
 
-import hu.gyuriczaadam.sprintformteszt.domain.model.remote.TransactionListModel
+import hu.gyuriczaadam.sprintformteszt.domain.model.local.TransactionListEntity
 
-data class TransactionDtoItem(
+data class TransactionListModel(
     val category: String,
     val currency: String,
     val id: String,
@@ -11,8 +11,8 @@ data class TransactionDtoItem(
     val summary: String
 )
 
-fun TransactionDtoItem.toTransactionListModel(): TransactionListModel {
-    return TransactionListModel(
+fun TransactionListModel.toTransactionListEntity():TransactionListEntity{
+    return TransactionListEntity(
         category = category,
         currency= currency,
         id = id,

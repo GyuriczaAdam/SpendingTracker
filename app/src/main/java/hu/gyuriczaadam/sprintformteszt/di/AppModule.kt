@@ -1,9 +1,13 @@
 package hu.gyuriczaadam.sprintformteszt.di
 
+import android.app.Application
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import hu.gyuriczaadam.sprintformteszt.data.local.daos.TransactionDao
+import hu.gyuriczaadam.sprintformteszt.data.local.data_source.TransactionsDatabase
 import hu.gyuriczaadam.sprintformteszt.data.remote.TransactionApi
 import hu.gyuriczaadam.sprintformteszt.data.repository.TransactionRepositoryImpl
 import hu.gyuriczaadam.sprintformteszt.domain.repositories.TransactionRepository
@@ -28,7 +32,22 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTransactionRepository(api:TransactionApi):TransactionRepository{
-        return TransactionRepositoryImpl(api)
+    fun provideTransactionRepository(
+        api:TransactionApi,
+        db:TransactionsDatabase
+    ):TransactionRepository{
+        return TransactionRepositoryImpl(
+            transactionApi = api,
+            transactionDao = db.transactionDao
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideTransactionDatabase(app:Application):TransactionsDatabase{
+        return Room.databaseBuilder(app,
+            TransactionsDatabase::class.java,
+            "transaction_db"
+            ).build()
     }
 }

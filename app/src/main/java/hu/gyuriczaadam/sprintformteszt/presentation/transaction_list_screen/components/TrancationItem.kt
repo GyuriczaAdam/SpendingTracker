@@ -13,13 +13,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import hu.gyuriczaadam.sprintformteszt.domain.model.TransactionListModel
+import hu.gyuriczaadam.sprintformteszt.domain.model.TransactionItem
+import hu.gyuriczaadam.sprintformteszt.domain.model.remote.TransactionListModel
 import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
 
 
 @Composable
 fun TrancationItem(
-    transactionListModel: TransactionListModel,
+    transactionItem: TransactionItem,
     onClick: ()->Unit,
     modifier: Modifier
 ) {
@@ -49,13 +50,13 @@ fun TrancationItem(
                 Column(
                     modifier = Modifier.align(CenterVertically)
                 ) {
-                    Text(text = transactionListModel.summary,
+                    Text(text = transactionItem.summary,
                         style = MaterialTheme.typography.body1,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                         )
                     Spacer(modifier = Modifier.width(spacing.spaceSmall))
-                    Text(text = transactionListModel.paid,
+                    Text(text = transactionItem.paid,
                     style = MaterialTheme.typography.body2
                         )
                 }
@@ -64,11 +65,11 @@ fun TrancationItem(
 
                 Spacer(modifier = Modifier.width(spacing.spaceSmall))
 
-                Text(text = transactionListModel.sum.toString(),
+                Text(text = transactionItem.sum.toString(),
                     style = MaterialTheme.typography.body2
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceExtraSmall))
-                Text(text = transactionListModel.currency,
+                Text(text = transactionItem.currency,
                     style = MaterialTheme.typography.body2
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceSmall))

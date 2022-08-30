@@ -1,4 +1,4 @@
-package hu.gyuriczaadam.sprintformteszt.ui.theme
+package hu.gyuriczaadam.sprintformteszt.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
