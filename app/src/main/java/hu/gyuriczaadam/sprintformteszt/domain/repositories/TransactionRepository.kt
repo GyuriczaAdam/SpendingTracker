@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface TransactionRepository {
     suspend fun getTransactionsFromApi():TransactionDto
-    fun getAllTransactions():Flow<List<TransactionListEntity>>
+    fun getAllTransactions():Flow<List<TransactionItem>>
     suspend fun insertTransaction(transactionListEntity: TransactionListEntity)
 }
