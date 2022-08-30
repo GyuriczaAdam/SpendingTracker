@@ -9,4 +9,5 @@ interface TransactionRepository {
     suspend fun getTransactionsFromApi():TransactionDto
     fun getAllTransactions():Flow<List<TransactionItem>>
     suspend fun insertTransaction(transactionListEntity: TransactionListEntity)
+    fun getTransactionsByQuery(query:String):Flow<List<TransactionItem>>
 }

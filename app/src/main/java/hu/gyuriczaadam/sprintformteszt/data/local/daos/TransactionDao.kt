@@ -12,6 +12,9 @@ interface TransactionDao {
     @Query("SELECT * FROM transactionlistentity")
     fun getTransactions():Flow<List<TransactionListEntity>>
 
+    @Query("SELECT * FROM transactionlistentity WHERE summary  = :query OR sum = :query OR category = :query ")
+    fun getTransactionsByQuery(query:String):Flow<List<TransactionListEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransaction(transactionListEntity: TransactionListEntity)
 }

@@ -27,4 +27,10 @@ class TransactionRepositoryImpl(
     override suspend fun insertTransaction(transactionListEntity: TransactionListEntity) {
         transactionDao.insertTransaction(transactionListEntity)
     }
+
+    override fun getTransactionsByQuery(query: String): Flow<List<TransactionItem>> {
+        return transactionDao.getTransactionsByQuery(query).map { transaction->
+            transaction.map { it.toTransacrtionItem() }
+        }
+    }
 }

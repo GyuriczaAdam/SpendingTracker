@@ -10,4 +10,6 @@
     <string name="no_results">no results</string>
     <string name="search_id">search</string>
     <string name="transaction_search_text">Search transactions...</string>
+    <string name="drop_down_dec">Open or close drop down</string>
+    <string name="filter_teransaction_text">Filter transactions!</string>
 </resources>

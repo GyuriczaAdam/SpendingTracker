@@ -1,6 +1,8 @@
 package hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen.components
 
+import android.util.Log
 import androidx.compose.animation.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,12 +13,16 @@ import androidx.compose.material.icons.filled.Sort
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import hu.gyuriczaadam.sprintformteszt.R
 import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
 import hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen.TransactionEvent
@@ -80,31 +86,48 @@ fun TransactionListScreen(
                     .fillMaxWidth()
                     .padding(vertical = 16.dp)
                     .testTag(TestTags.ORDER_SECTION),
-                transactionOrder = state.transactionOrder,
-                onOrderChange = {
+                transactionType = state.transactionTypes,
+                onClick = {
+                    Log.d("Teszt","Type $it")
                     viewModel.onEvent(TransactionEvent.Order(it))
                 }
             )
         }
         Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
         SearchTextField(
-            text = "",
+            text = state.query,
             hint = stringResource(R.string.transaction_search_text),
             onValueChange = {
-
+                viewModel.onEvent(TransactionEvent.OnQueryChange(it))
             },
-            shouldShowHint = true,
+            shouldShowHint = state.isHintVisible,
             onSearch = {
-
+                viewModel.onEvent(TransactionEvent.OnSearch)
             },
             onFocusChanged = {
-
+                viewModel.onEvent(TransactionEvent.OnSearchFocusChange(it.isFocused))
             })
 
         Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(state.transaction){transaction->
-                TrancationItem(transactionItem = transaction, onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth())
+
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = false),
+            onRefresh = {
+            viewModel.onEvent(TransactionEvent.OnRefresh)
+        },
+            indicator = {state, refreshTrigger ->  
+                SwipeRefreshIndicator(
+                    state = state,
+                    refreshTriggerDistance = refreshTrigger,
+                    scale = true,
+                    backgroundColor = MaterialTheme.colors.primary
+                )
+            }
+        ) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(state.transaction){transaction->
+                    TrancationItem(transactionItem = transaction, onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth())
+                }
             }
         }
     }
@@ -115,11 +138,11 @@ fun TransactionListScreen(
         when {
             state.isLoading -> CircularProgressIndicator()
             state.transaction.isEmpty() -> {
-                Text(
+               /* Text(
                     text = stringResource(id = R.string.no_results),
                     style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Center
-                )
+                )*/
                 }
             }
         }
