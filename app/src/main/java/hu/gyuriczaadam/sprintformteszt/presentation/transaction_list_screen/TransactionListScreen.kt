@@ -3,9 +3,9 @@ package hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen.com
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +25,20 @@ fun TransactionListScreen(
 ) {
     val state = viewModel.state.value
     val localSpacing = LocalSpacing.current
+    val scaffoldState = rememberScaffoldState()
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                   // navController.navigate(Screen.AddEditNoteScreen.route)
+                },
+                backgroundColor = MaterialTheme.colors.primary
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
+            }
+        },
+        scaffoldState = scaffoldState
+    ) {
     Column(  modifier = Modifier
         .fillMaxSize()
         .padding(18.dp)) {
@@ -46,16 +60,17 @@ fun TransactionListScreen(
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
-    ){
-        when{
-            state.isLoading-> CircularProgressIndicator()
-          /*  state.transaction.isEmpty()->{
+    ) {
+        when {
+            state.isLoading -> CircularProgressIndicator()
+            state.transaction.isEmpty() -> {
                 Text(
                     text = stringResource(id = R.string.no_results),
                     style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Center
                 )
-            }*/
+                }
+            }
         }
     }
 }
