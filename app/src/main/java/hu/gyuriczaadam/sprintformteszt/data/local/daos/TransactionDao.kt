@@ -12,7 +12,7 @@ interface TransactionDao {
     @Query("SELECT * FROM transactionlistentity")
     fun getTransactions():Flow<List<TransactionListEntity>>
 
-    @Query("SELECT * FROM transactionlistentity WHERE summary  = :query OR sum = :query OR category = :query ")
+    @Query("SELECT * FROM transactionlistentity WHERE summary  LIKE '%'||:query||'%' OR sum LIKE '%'||:query||'%' OR category LIKE '%'||:query||'%' ")
     fun getTransactionsByQuery(query:String):Flow<List<TransactionListEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -13,6 +13,7 @@ fun OrderSection(
     transactionType:  TransactionTypes = TransactionTypes.travel,
     onClick:(TransactionTypes)->Unit
 ) {
+    //TODO: add texts to string resources
     Column(
         modifier = modifier
     ) {
