@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">SprintFormTeszt</string>
     <string name="app_title_text">SprintForm teszt app</string>
+    <string name="network_error_text">Coudnt reach server check internet connection</string>
+    <string name="unexpected_error_text">An unexcepted error occured</string>
+    <string name="no_text_entered_text">No text entered</string>
+    <string name="transaction_date_text">Transaction date</string>
+    <string name="transaction_sum_text">sum</string>
+    <string name="transaction_currency_text">currency</string>
+    <string name="no_results">no results</string>
 </resources>
