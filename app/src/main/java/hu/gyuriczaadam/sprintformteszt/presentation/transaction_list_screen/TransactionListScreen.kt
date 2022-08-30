@@ -103,10 +103,8 @@ fun TransactionListScreen(
             shouldShowHint = state.isHintVisible,
             onSearch = {
                 viewModel.onEvent(TransactionEvent.OnSearch)
-            },
-            onFocusChanged = {
-                viewModel.onEvent(TransactionEvent.OnSearchFocusChange(it.isFocused))
-            })
+            }
+        )
 
         Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
 
@@ -137,13 +135,6 @@ fun TransactionListScreen(
     ) {
         when {
             state.isLoading -> CircularProgressIndicator()
-            state.transaction.isEmpty() -> {
-               /* Text(
-                    text = stringResource(id = R.string.no_results),
-                    style = MaterialTheme.typography.body1,
-                    textAlign = TextAlign.Center
-                )*/
-                }
             }
         }
     }
