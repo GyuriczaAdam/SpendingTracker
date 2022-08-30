@@ -1,4 +1,4 @@
-package hu.gyuriczaadam.sprintformteszt.domain.model.local
+package hu.gyuriczaadam.sprintformteszt.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,7 +10,7 @@ data class TransactionListEntity(
     val category: String,
     val currency: String,
     @PrimaryKey
-    val id: String,
+    val id: Int,
     val paid: String,
     val sum: Int,
     val summary: String

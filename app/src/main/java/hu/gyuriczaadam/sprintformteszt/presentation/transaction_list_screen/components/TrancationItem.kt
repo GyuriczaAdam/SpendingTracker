@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import hu.gyuriczaadam.sprintformteszt.domain.model.TransactionItem
-import hu.gyuriczaadam.sprintformteszt.domain.model.remote.TransactionListModel
 import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
 
 

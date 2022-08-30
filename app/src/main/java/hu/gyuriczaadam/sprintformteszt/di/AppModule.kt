@@ -48,6 +48,8 @@ object AppModule {
         return Room.databaseBuilder(app,
             TransactionsDatabase::class.java,
             "transaction_db"
-            ).build()
+            )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }
