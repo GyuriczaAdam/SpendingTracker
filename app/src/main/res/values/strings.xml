@@ -14,4 +14,6 @@
     <string name="filter_teransaction_text">Filter transactions!</string>
     <string name="save_costume_transaction">Save</string>
     <string name="sort_content_dec">Sort</string>
+    <string name="add_edit_screen_title">Add/Edit spendigs</string>
+    <string name="textfiled_icon_text">textFiledIcon</string>
 </resources>
