@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetAllTransactionsUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionsFromApiUseCase
+import hu.gyuriczaadam.sprintformteszt.util.OrderType
 import hu.gyuriczaadam.sprintformteszt.util.Resource
+import hu.gyuriczaadam.sprintformteszt.util.TransactionOrder
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -23,9 +25,9 @@ class TransactionListViewModel @Inject constructor(
     val state:State<TransactionListState> = _state
 
     private var getAlTransactionsJob:Job? = null
+
     init {
         getTransactions()
-
     }
 
     fun onEvent(event: TransactionEvent){
@@ -34,7 +36,7 @@ class TransactionListViewModel @Inject constructor(
                 if(state.value.transactionOrder::class == event.transactionOrder::class && state.value.transactionOrder.orderType == event.transactionOrder.orderType){
                     return
                 }
-                getTransactions()
+                getAllTransactions(event.transactionOrder)
             }
             TransactionEvent.ToggleOrderSection -> {
                 _state.value = state.value.copy(
@@ -54,7 +56,7 @@ class TransactionListViewModel @Inject constructor(
                  _state.value = TransactionListState(isLoading = true)
              }
              is Resource.Success -> {
-                    getAllTransactions()
+                    getAllTransactions(TransactionOrder.Date(OrderType.Descending))
                 }
             }
         }.launchIn(viewModelScope)
@@ -63,10 +65,10 @@ class TransactionListViewModel @Inject constructor(
         }
     }
 
-    private fun getAllTransactions(){
+    private fun getAllTransactions(transactionOrder: TransactionOrder){
         getAlTransactionsJob?.cancel()
-        getAlTransactionsJob = getAllTransactionsUseCase().onEach { result->
-            _state.value = TransactionListState(transaction = result )
+        getAlTransactionsJob = getAllTransactionsUseCase(transactionOrder).onEach { result->
+            _state.value = TransactionListState(transaction = result , transactionOrder = transactionOrder )
         }.launchIn(viewModelScope)
 
     }

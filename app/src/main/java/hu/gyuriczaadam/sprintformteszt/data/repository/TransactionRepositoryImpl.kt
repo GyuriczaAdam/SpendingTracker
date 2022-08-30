@@ -19,8 +19,10 @@ class TransactionRepositoryImpl(
         return transactionApi.getTransactionList()
     }
 
-    override fun getAllTransactions(): Flow<List<TransactionListEntity>> {
-        return transactionDao.getTransactions()
+    override fun getAllTransactions(): Flow<List<TransactionItem>> {
+        return transactionDao.getTransactions().map { transaction->
+            transaction.map { it.toTransacrtionItem() }
+        }
     }
 
     override suspend fun insertTransaction(transactionListEntity: TransactionListEntity) {
