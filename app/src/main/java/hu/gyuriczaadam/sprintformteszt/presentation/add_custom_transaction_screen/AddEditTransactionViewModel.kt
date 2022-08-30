@@ -41,6 +41,7 @@ constructor(
     val transactionType:State<TransactionTextFieldState> = _transactionType
 
     private val _transactionAmount = mutableStateOf(TransactionTextFieldState(
+        text = "0",
         hint = "Enter  transaction amount"
     ))
     val transactionAmount:State<TransactionTextFieldState> = _transactionAmount
