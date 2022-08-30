@@ -82,7 +82,6 @@ fun AddEditTransactionScreen(
                 .fillMaxSize()
                 .padding(localSpacing.spaceLarge)
             ) {
-
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
                 TransparentHintTextField(
                     text = transactionTitleState.text,
@@ -97,9 +96,8 @@ fun AddEditTransactionScreen(
                     onFocusChange = {
                         viewModel.onEvent(AddEditTransactionEvent.ChangeTransactionTitelFocus(it))
                     },
-                    isHintVisible = transactionTitleState.isHintVisible,
                     singleLine = true,
-                    textStyle = MaterialTheme.typography.h5
+                    textStyle = MaterialTheme.typography.body1
                 )
 
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
@@ -117,7 +115,6 @@ fun AddEditTransactionScreen(
                     onFocusChange = {
                         viewModel.onEvent(AddEditTransactionEvent.ChangeTransactionTypeFocus(it))
                     },
-                    isHintVisible = transactionTypeState.isHintVisible,
                     textStyle = MaterialTheme.typography.body1,
                 )
 
@@ -135,7 +132,6 @@ fun AddEditTransactionScreen(
                     onFocusChange = {
                         viewModel.onEvent(AddEditTransactionEvent.ChangeAmountFocus(it))
                     },
-                    isHintVisible = transactionAmountState.isHintVisible,
                     textStyle = MaterialTheme.typography.body1,
                 )
             }

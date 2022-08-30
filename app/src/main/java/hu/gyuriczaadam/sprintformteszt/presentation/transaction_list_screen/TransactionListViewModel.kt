@@ -10,6 +10,7 @@ import hu.gyuriczaadam.sprintformteszt.domain.model.TransactionItem
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetAllTransactionsUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionByQueryUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionsFromApiUseCase
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.TransactionUseCases
 import hu.gyuriczaadam.sprintformteszt.util.Resource
 import hu.gyuriczaadam.sprintformteszt.util.TransactionTypes
 import kotlinx.coroutines.Job
@@ -19,9 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TransactionListViewModel @Inject constructor(
-    private val getTransactionsFromApiUseCase: GetTransactionsFromApiUseCase,
-    private val getAllTransactionsUseCase: GetAllTransactionsUseCase,
-    private val getTransactionByQueryUseCase: GetTransactionByQueryUseCase
+    private val transactionUseCases: TransactionUseCases
 ):ViewModel() {
     private val _state = mutableStateOf(TransactionListState())
     val state:State<TransactionListState> = _state
@@ -36,7 +35,6 @@ class TransactionListViewModel @Inject constructor(
         when(event){
             is TransactionEvent.Order -> {
                 _state.value = TransactionListState(transactionTypes = event.transactionTypes)
-                Log.d("Filter type:","type: ${event.transactionTypes}")
                     when(event.transactionTypes){
                         TransactionTypes.all -> getAllTransactions()
                         TransactionTypes.food -> getTransactionsByQuery("food",event.transactionTypes)
@@ -52,7 +50,7 @@ class TransactionListViewModel @Inject constructor(
                     }
             }
             TransactionEvent.ToggleOrderSection -> {
-                _state.value = TransactionListState(isOrderSectionVisible = !state.value.isOrderSectionVisible)
+                _state.value = TransactionListState(isOrderSectionVisible = !state.value.isOrderSectionVisible , transaction = state.value.transaction, transactionTypes = state.value.transactionTypes)
             }
             is TransactionEvent.OnQueryChange -> {
                 _state.value = TransactionListState(query = event.query)
@@ -67,7 +65,7 @@ class TransactionListViewModel @Inject constructor(
     }
 
     private fun getTransactions(){
-     val job = getTransactionsFromApiUseCase().onEach { result->
+     val job = transactionUseCases.getTransactionsFromApiUseCase().onEach { result->
          when(result){
              is Resource.Error -> {
                  _state.value = TransactionListState(error = result.message.toString())
@@ -87,7 +85,7 @@ class TransactionListViewModel @Inject constructor(
 
   private fun getAllTransactions():List<TransactionItem>{
      getTransactionsJob?.cancel()
-     getTransactionsJob = getAllTransactionsUseCase().onEach { result->
+     getTransactionsJob = transactionUseCases.getAllTransactionsUseCase().onEach { result->
             _state.value = TransactionListState(transaction = result)
         }.launchIn(viewModelScope)
       return _state.value.transaction
@@ -95,7 +93,7 @@ class TransactionListViewModel @Inject constructor(
 
     private fun getTransactionsByQuery(query:String,transactionTypes: TransactionTypes){
         getTransactionsJob?.cancel()
-        getTransactionsJob =  getTransactionByQueryUseCase(query).onEach { result->
+        getTransactionsJob =  transactionUseCases.getTransactionByQueryUseCase(query).onEach { result->
             _state.value = TransactionListState(transaction = result , transactionTypes =transactionTypes)
         }.launchIn(viewModelScope)
     }

@@ -45,7 +45,7 @@ val Typography = Typography(
     ),
     h5 = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp
     ),
 )

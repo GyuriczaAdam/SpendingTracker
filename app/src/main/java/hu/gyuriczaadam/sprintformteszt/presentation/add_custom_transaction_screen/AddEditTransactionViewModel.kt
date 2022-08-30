@@ -2,20 +2,14 @@ package hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_scre
 
 import android.util.Log
 import androidx.compose.runtime.State
-import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.PrimaryKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.gyuriczaadam.sprintformteszt.data.local.entities.InvalidTransactionException
 import hu.gyuriczaadam.sprintformteszt.data.local.entities.TransactionListEntity
-import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionByIdUseCase
-import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionByQueryUseCase
-import hu.gyuriczaadam.sprintformteszt.domain.use_case.InsertTransactionUseCase
-import hu.gyuriczaadam.sprintformteszt.domain.use_case.TransactionTypesListUseCase
-
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.TransactionUseCases
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -23,15 +17,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-
-//TODO:Make wrapper class for usecases
 @HiltViewModel
 class AddEditTransactionViewModel @Inject
 constructor(
-    private val insertTransactionUseCase: InsertTransactionUseCase,
-    private val getTransactionByIdUseCase: GetTransactionByIdUseCase,
-    private val transactionTypesListUseCase: TransactionTypesListUseCase,
-    savedStateHandle: SavedStateHandle
+    private val transactionUseCases: TransactionUseCases,
+    savedStateHandle: SavedStateHandle,
+
 ):ViewModel(){
     private val _transactionTitle = mutableStateOf(TransactionTextFieldState(
         hint = "Enter  transaction title..."
@@ -42,7 +33,8 @@ constructor(
         hint = "Enter  transaction type..."
     ))
     val transactionType:State<TransactionTextFieldState> = _transactionType
-
+    val sdf = SimpleDateFormat("yyyy-MM-dd")
+    val currentDate = sdf.format(Date())
     private val _transactionAmount = mutableStateOf(TransactionTextFieldState(
         text = "0",
         hint = "Enter  transaction amount"
@@ -58,7 +50,7 @@ constructor(
             Log.d("ID","ID: $transactionId")
             if(transactionId != -1) {
                viewModelScope.launch {
-                   getTransactionByIdUseCase(transactionId)?.also { transaction ->
+                   transactionUseCases.getTransactionByIdUseCase(transactionId)?.also { transaction ->
                        currentTransactionId = transaction.id
                        _transactionTitle.value = transactionTitle.value.copy(
                            text = transaction.summary,
@@ -77,9 +69,6 @@ constructor(
             }
         }
     }
-    //TODO:REFACTOOOR!!
-    val sdf = SimpleDateFormat("yyyy-MM-dd")
-    val currentDate = sdf.format(Date())
 
     fun onEvent(event: AddEditTransactionEvent){
         when(event){
@@ -116,7 +105,7 @@ constructor(
             AddEditTransactionEvent.SaveTransaction -> {
                 viewModelScope.launch {
                     try {
-                        insertTransactionUseCase(
+                        transactionUseCases.insertTransactionUseCase(
                             transactionListEntity = TransactionListEntity(
                                 category = transactionType.value.text,
                                 currency = "HUF",
@@ -125,7 +114,7 @@ constructor(
                                 sum = transactionAmount.value.text.toInt(),
                                 summary = transactionTitle.value.text
                             ),
-                            transactionTypesListUseCase()
+                            transactionUseCases.transactionTypesListUseCase()
                         )
                         _eventFlow.emit(UiEvent.SaveNote)
                     }catch (e:InvalidTransactionException){

@@ -16,4 +16,8 @@
     <string name="sort_content_dec">Sort</string>
     <string name="add_edit_screen_title">Add/Edit spendigs</string>
     <string name="textfiled_icon_text">textFiledIcon</string>
+    <string name="add_button_desc">Add</string>
+    <string name="transaction_title_hint">Enter  transaction title...</string>
+    <string name="transaction_type_hint">Enter  transaction type...</string>
+    <string name="transaction_amount_hint">Enter  transaction amount...</string>
 </resources>
