@@ -11,16 +11,16 @@ class InsertTransactionUseCase  (
     ) {
     suspend operator fun invoke(transactionListEntity: TransactionListEntity,transactionTypeList: List<String>): Resource<Unit> {
         if(transactionListEntity.summary.isBlank()){
-            return Resource.Error(UIText.StringResource(R.string.error_save_transaction))
+            return Resource.Error(UIText.StringResource(R.string.invalid_transaction_title_error_text))
         }
         if(transactionListEntity.category.isBlank()){
-            return Resource.Error(UIText.StringResource(R.string.error_save_transaction))
+            return Resource.Error(UIText.StringResource(R.string.empty_transaction_type_error_text))
         }
         if(!transactionTypeList.contains(transactionListEntity.category)){
-            return Resource.Error(UIText.StringResource(R.string.error_save_transaction))
+            return Resource.Error(UIText.StringResource(R.string.invalid_transaction_type_error_text))
         }
         if(transactionListEntity.sum<=0){
-            return Resource.Error(UIText.StringResource(R.string.error_save_transaction))
+            return Resource.Error(UIText.StringResource(R.string.null_transaction_amount_error_text))
         }
        return Resource.Success(repository.insertTransaction(transactionListEntity))
     }
