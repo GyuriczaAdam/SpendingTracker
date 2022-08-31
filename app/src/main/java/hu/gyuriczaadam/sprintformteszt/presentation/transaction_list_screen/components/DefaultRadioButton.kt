@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
+import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
 
 @Composable
 fun DefaultRadioButton(
@@ -21,6 +21,7 @@ fun DefaultRadioButton(
     onSelect: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val localSpacing = LocalSpacing.current
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
@@ -36,7 +37,7 @@ fun DefaultRadioButton(
                 contentDescription = text
             }
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
         Text(text = text, style = MaterialTheme.typography.body1)
     }
 }

@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import hu.gyuriczaadam.sprintformteszt.data.local.daos.TransactionDao
+import hu.gyuriczaadam.sprintformteszt.BuildConfig
 import hu.gyuriczaadam.sprintformteszt.data.local.data_source.TransactionsDatabase
 import hu.gyuriczaadam.sprintformteszt.data.remote.TransactionApi
 import hu.gyuriczaadam.sprintformteszt.data.repository.TransactionRepositoryImpl
@@ -20,12 +20,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    //TODO:Put baseurl to buildsrc
     @Provides
     @Singleton
     fun provideTransactionApi():TransactionApi{
         return Retrofit.Builder()
-            .baseUrl("https://development.sprintform.com/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(TransactionApi::class.java)
@@ -63,7 +62,7 @@ object AppModule {
             getTransactionByQueryUseCase = GetTransactionByQueryUseCase(repository),
             getTransactionsFromApiUseCase = GetTransactionsFromApiUseCase(repository),
             insertTransactionUseCase = InsertTransactionUseCase(repository),
-            transactionTypesListUseCase = TransactionTypesListUseCase(repository)
+            transactionTypesListUseCase = TransactionTypesListUseCase()
         )
     }
 

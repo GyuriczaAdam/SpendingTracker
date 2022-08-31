@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import hu.gyuriczaadam.sprintformteszt.data.local.entities.TransactionListEntity
 import hu.gyuriczaadam.sprintformteszt.data.remote.transaction_dto.TransactionDtoItem
 import hu.gyuriczaadam.sprintformteszt.domain.model.TransactionItem
+import hu.gyuriczaadam.sprintformteszt.util.Constants
 
 fun TransactionListEntity.toTransacrtionItem(): TransactionItem {
     return TransactionItem(
@@ -20,16 +21,16 @@ fun TransactionListEntity.toTransacrtionItem(): TransactionItem {
 }
 fun switchImage(category:String):ImageVector{
         when(category){
-        "food"->return Icons.Default.FoodBank
-        "travel"->return Icons.Default.Tram
-        "housing"->return Icons.Default.House
-        "utilities"->return Icons.Default.PanTool
-        "insurance"->return Icons.Default.HealthAndSafety
-        "healthcare"->return Icons.Default.Emergency
-        "financial"->return Icons.Default.CreditCard
-        "lifestyle"->return Icons.Default.Style
-        "entertainment"->return Icons.Default.MusicVideo
-        "miscellaneous"->return Icons.Default.MiscellaneousServices
+        Constants.FOOD_TYPE->return Icons.Default.Fastfood
+        Constants.TRAVEL_TYPE->return Icons.Default.Tram
+        Constants.HOUSING_TYPE->return Icons.Default.House
+        Constants.UTILITIES_TYPE->return Icons.Default.PanTool
+        Constants.INSURANCE_TYPE->return Icons.Default.HealthAndSafety
+        Constants.HEALTHCARE_TYPE->return Icons.Default.Emergency
+        Constants.FINANCIAL_TYPE->return Icons.Default.CreditCard
+        Constants.LIFESTYLE_TYPE->return Icons.Default.Style
+        Constants.ENTERTAINMENT_TYPE->return Icons.Default.MusicVideo
+        Constants.MISCELLANEOUS_TYPE->return Icons.Default.MiscellaneousServices
             else->return Icons.Default.DonutLarge
         }
 }

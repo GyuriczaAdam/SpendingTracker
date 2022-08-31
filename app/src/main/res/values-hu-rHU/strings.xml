@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SprintFormTeszt</string>
+    <string name="app_title_text">Költségkövető alkalmazás</string>
+    <string name="network_error_text">Nincs internet</string>
+    <string name="unexpected_error_text">Váratlan hiba történt</string>
+    <string name="no_text_entered_text">Szöveg nem került beírásra</string>
+    <string name="transaction_date_text">Tranzakció dátuma</string>
+    <string name="transaction_sum_text">Összeg</string>
+    <string name="transaction_currency_text">Valuta</string>
+    <string name="no_results">Nincs eredmény</string>
+    <string name="search_id">Keresés</string>
+    <string name="transaction_search_text">Keresés tranzakciók között..</string>
+    <string name="drop_down_dec">Open or close drop down</string>
+    <string name="filter_teransaction_text">Tranzakciók szűrése</string>
+    <string name="save_costume_transaction">Save</string>
+    <string name="sort_content_dec">Sort</string>
+    <string name="add_edit_screen_title">Költség módosítás/hozzáadás</string>
+    <string name="textfiled_icon_text">textFiledIcon</string>
+    <string name="add_button_desc">Add</string>
+    <string name="transaction_title_hint">Tranzakció neve...</string>
+    <string name="transaction_type_hint">Tranzakció tipusa...</string>
+    <string name="transaction_amount_hint">Tranzakció összege...</string>
+    <string name="reach_server_error_text">Nem sikerült elérni a szervert</string>
+    <string name="error_save_transaction">A tranzakció mentése sikertelen</string>
+    <string name="invalid_transaction_type_error_text">Nincs ilyen tipusú tranzakció az adatbázisban</string>
+    <string name="empty_transaction_type_error_text">A tranzakció tipusa nem lehet üres</string>
+    <string name="invalid_transaction_title_error_text">A tranzakció leírása nem lehet üres</string>
+    <string name="null_transaction_amount_error_text">A tranzakció összege nem lehet 0</string>
+    <string name="food_type">étel</string>
+    <string name="housing_type">lakhatás</string>
+    <string name="travel_type">utazás</string>
+    <string name="uitlities_type">kellék</string>
+    <string name="insurance_type">biztosítás</string>
+    <string name="healthcare_type">egészség</string>
+    <string name="financial_type">pénzügyi</string>
+    <string name="lifestyle_type">életmód</string>
+    <string name="entertainment_type">szórakozás</string>
+    <string name="miscellaneous_type">vegyes</string>
+    <string name="all_type">mind</string>
+</resources>

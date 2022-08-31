@@ -1,8 +1,7 @@
 package hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen.components
 
-import androidx.compose.foundation.layout.Box
+import android.content.Context
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
@@ -11,24 +10,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import hu.gyuriczaadam.sprintformteszt.R
+import hu.gyuriczaadam.sprintformteszt.util.UIText
 
 @Composable
 fun TransparentHintTextField(
     text: String,
-    hint: String,
+    hint: UIText,
     imageVector: ImageVector,
     keyboardOptions: KeyboardOptions,
     onValueChange: (String) -> Unit,
     textStyle: TextStyle = TextStyle(),
     singleLine: Boolean = false,
     testTag: String = "",
-    onFocusChange: (FocusState) -> Unit
+    onFocusChange: (FocusState) -> Unit,
+    context: Context
 ) {
         OutlinedTextField(
             value = text,
@@ -36,7 +36,7 @@ fun TransparentHintTextField(
             singleLine = singleLine,
             textStyle = textStyle,
             label={
-                Text(text = hint)
+                Text(text = hint.asString(context))
             },
             leadingIcon={
                 Icon(imageVector =imageVector , contentDescription = stringResource(R.string.textfiled_icon_text))

@@ -1,11 +1,21 @@
 package hu.gyuriczaadam.sprintformteszt.domain.use_case
 
-import hu.gyuriczaadam.sprintformteszt.domain.repositories.TransactionRepository
-import javax.inject.Inject
+import hu.gyuriczaadam.sprintformteszt.util.Constants
 
-class TransactionTypesListUseCase @Inject constructor(private val repository: TransactionRepository) {
+class TransactionTypesListUseCase
+     {
     operator fun invoke():List<String>{
-        val transactionTypes:List<String> = mutableListOf("food","housing","travel","all","utilities","insurance","healthcare","financial","lifestye","entertainment","miscellaneous")
+        val transactionTypes:List<String> = mutableListOf(
+            Constants.FOOD_TYPE,
+            Constants.HOUSING_TYPE,
+            Constants.TRAVEL_TYPE,
+            Constants.UTILITIES_TYPE,
+            Constants.INSURANCE_TYPE,
+            Constants.HEALTHCARE_TYPE,
+            Constants.FINANCIAL_TYPE,
+            Constants.LIFESTYLE_TYPE,
+            Constants.ENTERTAINMENT_TYPE,
+            Constants.MISCELLANEOUS_TYPE)
         return transactionTypes
     }
 }

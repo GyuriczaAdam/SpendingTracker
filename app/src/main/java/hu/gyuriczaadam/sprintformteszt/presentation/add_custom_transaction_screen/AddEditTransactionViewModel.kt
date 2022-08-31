@@ -1,17 +1,19 @@
 package hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen
 
-import android.util.Log
+import hu.gyuriczaadam.sprintformteszt.R
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.gyuriczaadam.sprintformteszt.data.local.entities.InvalidTransactionException
 import hu.gyuriczaadam.sprintformteszt.data.local.entities.TransactionListEntity
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.TransactionUseCases
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import hu.gyuriczaadam.sprintformteszt.util.Resource
+import hu.gyuriczaadam.sprintformteszt.util.UIEvent
+import hu.gyuriczaadam.sprintformteszt.util.UIText
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,29 +27,28 @@ constructor(
 
 ):ViewModel(){
     private val _transactionTitle = mutableStateOf(TransactionTextFieldState(
-        hint = "Enter  transaction title..."
+        hint = UIText.StringResource(R.string.transaction_title_hint)
     ))
     val transactionTitle:State<TransactionTextFieldState> = _transactionTitle
 
     private val _transactionType = mutableStateOf(TransactionTextFieldState(
-        hint = "Enter  transaction type..."
+        hint = UIText.StringResource(R.string.transaction_type_hint)
     ))
     val transactionType:State<TransactionTextFieldState> = _transactionType
     val sdf = SimpleDateFormat("yyyy-MM-dd")
     val currentDate = sdf.format(Date())
     private val _transactionAmount = mutableStateOf(TransactionTextFieldState(
-        text = "0",
-        hint = "Enter  transaction amount"
+        text = "1",
+        hint = UIText.StringResource(R.string.transaction_amount_hint)
     ))
     val transactionAmount:State<TransactionTextFieldState> = _transactionAmount
 
-    private val _eventFlow = MutableSharedFlow<UiEvent>()
-    val eventFlow = _eventFlow.asSharedFlow()
+    private val _uiEvent = Channel<UIEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
     private var currentTransactionId:Int? = null
     init {
         savedStateHandle.get<Int>("transactionId")?.let { transactionId ->
-            Log.d("ID","ID: $transactionId")
             if(transactionId != -1) {
                viewModelScope.launch {
                    transactionUseCases.getTransactionByIdUseCase(transactionId)?.also { transaction ->
@@ -89,7 +90,7 @@ constructor(
             }
             is AddEditTransactionEvent.EnteredAmount -> {
                 _transactionAmount.value = transactionAmount.value.copy(
-                    text = event.value
+                        text = event.value
                 )
             }
             is AddEditTransactionEvent.EnteredTransactionTitle -> {
@@ -104,34 +105,38 @@ constructor(
             }
             AddEditTransactionEvent.SaveTransaction -> {
                 viewModelScope.launch {
-                    try {
-                        transactionUseCases.insertTransactionUseCase(
+
+                       val result = transactionUseCases.insertTransactionUseCase(
                             transactionListEntity = TransactionListEntity(
                                 category = transactionType.value.text,
                                 currency = "HUF",
                                 id = currentTransactionId,
                                 paid = currentDate,
-                                sum = transactionAmount.value.text.toInt(),
+                                sum = transactionAmount.value.text.toLong(),
                                 summary = transactionTitle.value.text
                             ),
                             transactionUseCases.transactionTypesListUseCase()
                         )
-                        _eventFlow.emit(UiEvent.SaveNote)
-                    }catch (e:InvalidTransactionException){
-                        _eventFlow.emit(
-                            UiEvent.ShowSnackbar(
-                                //TODO:STRING RESOURCE
-                                message = e.message?: "Couldn't save transaction"
+                    when(result){
+                        is Resource.Error -> {
+                            _uiEvent.send(
+                                UIEvent.ShowSnackBar(
+                                    result.message!!
+                                )
                             )
-                        )
+                        }
+                        is Resource.Success -> {
+                            _uiEvent.send(UIEvent.SaveTransaction)
+                            _uiEvent.send(UIEvent.NavigateUp)
+                        }
+                        else->Unit
                     }
+
+
+
+
                 }
             }
         }
-    }
-
-    sealed class UiEvent {
-        data class ShowSnackbar(val message: String): UiEvent()
-        object SaveNote: UiEvent()
     }
 }

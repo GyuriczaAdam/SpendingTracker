@@ -29,7 +29,7 @@ class TransactionRepositoryImpl(
     }
 
     override suspend fun insertTransaction(transactionListEntity: TransactionListEntity) {
-        transactionDao.insertTransaction(transactionListEntity)
+       return transactionDao.insertTransaction(transactionListEntity)
     }
 
     override fun getTransactionsByQuery(query: String): Flow<List<TransactionItem>> {

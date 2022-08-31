@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Sort
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -33,6 +34,7 @@ fun TransactionListScreen(
     val state = viewModel.state.value
     val localSpacing = LocalSpacing.current
     val scaffoldState = rememberScaffoldState()
+    val context  = LocalContext.current
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -86,7 +88,8 @@ fun TransactionListScreen(
                 transactionType = state.transactionTypes,
                 onClick = {
                     viewModel.onEvent(TransactionEvent.Order(it))
-                }
+                },
+                context= context
             )
         }
         Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
