@@ -11,5 +11,4 @@ object Constants {
     val LIFESTYLE_TYPE="lifestyle"
     val ENTERTAINMENT_TYPE="entertaniment"
     val MISCELLANEOUS_TYPE="miscellaneous"
-
 }

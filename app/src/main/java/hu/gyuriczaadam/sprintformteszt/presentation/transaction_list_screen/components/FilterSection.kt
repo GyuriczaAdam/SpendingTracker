@@ -56,13 +56,13 @@ fun OrderSection(
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.insurance_type).asString(context),
                 selected = transactionType is TransactionTypes.insurance,
-                onSelect = { onClick(TransactionTypes.utilities)}
+                onSelect = { onClick(TransactionTypes.insurance)}
             )
             Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.healthcare_type).asString(context),
                 selected = transactionType is TransactionTypes.healthcare,
-                onSelect = { onClick(TransactionTypes.utilities)}
+                onSelect = { onClick(TransactionTypes.healthcare)}
             )
         }
         Row(
