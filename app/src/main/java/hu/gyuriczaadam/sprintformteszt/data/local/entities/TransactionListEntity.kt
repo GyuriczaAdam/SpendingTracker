@@ -11,7 +11,7 @@ data class TransactionListEntity(
     @PrimaryKey
     val id: Int ? = null,
     val paid: String,
-    val sum: Int,
+    val sum: Long,
     val summary: String
     )
 

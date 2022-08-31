@@ -5,7 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import hu.gyuriczaadam.sprintformteszt.util.TransactionTypes
-
+import hu.gyuriczaadam.sprintformteszt.R
+import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
+import hu.gyuriczaadam.sprintformteszt.util.UIText
 
 @Composable
 fun OrderSection(
@@ -13,7 +15,7 @@ fun OrderSection(
     transactionType:  TransactionTypes = TransactionTypes.travel,
     onClick:(TransactionTypes)->Unit
 ) {
-    //TODO: add texts to string resources
+    val localSpacing = LocalSpacing.current
     Column(
         modifier = modifier
     ) {
@@ -21,43 +23,43 @@ fun OrderSection(
             modifier = Modifier.fillMaxWidth()
         ) {
             DefaultRadioButton(
-                text = "Housing",
+                text = UIText.StringResource(R.string.housing_type).asString(),
                 selected = transactionType is TransactionTypes.housing,
                 onSelect = { onClick(TransactionTypes.housing) }
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
-                text = "Food",
+                text = UIText.StringResource(R.string.food_type).asString(),
                 selected = transactionType is TransactionTypes.food,
                 onSelect = { onClick(TransactionTypes.food)}
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
-                text = "Utilities",
+                text = UIText.StringResource(R.string.uitlities_type).asString(),
                 selected = transactionType is TransactionTypes.utilities,
                 onSelect = { onClick(TransactionTypes.utilities)}
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(localSpacing.spaceSmall))
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
             DefaultRadioButton(
-                text = "Travel",
+                text = UIText.StringResource(R.string.travel_type).asString(),
                 selected = transactionType is TransactionTypes.travel,
                 onSelect = {
                    onClick(TransactionTypes.travel)
                 }
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
-                text = "Insurance",
+                text = UIText.StringResource(R.string.insurance_type).asString(),
                 selected = transactionType is TransactionTypes.insurance,
                 onSelect = { onClick(TransactionTypes.utilities)}
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
-                text = "Healthcare",
+                text = UIText.StringResource(R.string.healthcare_type).asString(),
                 selected = transactionType is TransactionTypes.healthcare,
                 onSelect = { onClick(TransactionTypes.utilities)}
             )
@@ -66,21 +68,21 @@ fun OrderSection(
             modifier = Modifier.fillMaxWidth()
         ) {
             DefaultRadioButton(
-                text = "Financial",
+                text = UIText.StringResource(R.string.financial_type).asString(),
                 selected = transactionType is TransactionTypes.financial,
                 onSelect = {
                     onClick(TransactionTypes.financial)
                 }
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
-                text = "Lifestyle",
+                text = UIText.StringResource(R.string.lifestyle_type).asString(),
                 selected = transactionType is TransactionTypes.lifestyle,
                 onSelect = { onClick(TransactionTypes.lifestyle)}
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
-                text = "Entertainment",
+                text = UIText.StringResource(R.string.entertainment_type).asString(),
                 selected = transactionType is TransactionTypes.enetertainment,
                 onSelect = { onClick(TransactionTypes.enetertainment)}
             )
@@ -89,13 +91,13 @@ fun OrderSection(
             modifier = Modifier.fillMaxWidth()
         ) {
             DefaultRadioButton(
-                text = "Miscellaneous",
+                text = UIText.StringResource(R.string.miscellaneous_type).asString(),
                 selected = transactionType is TransactionTypes.miscellaneous,
                 onSelect = { onClick(TransactionTypes.miscellaneous)}
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
-                text = "All",
+                text = UIText.StringResource(R.string.all_type).asString(),
                 selected = transactionType is TransactionTypes.all,
                 onSelect = { onClick(TransactionTypes.all)}
             )

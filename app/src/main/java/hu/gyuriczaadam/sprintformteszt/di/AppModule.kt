@@ -63,7 +63,7 @@ object AppModule {
             getTransactionByQueryUseCase = GetTransactionByQueryUseCase(repository),
             getTransactionsFromApiUseCase = GetTransactionsFromApiUseCase(repository),
             insertTransactionUseCase = InsertTransactionUseCase(repository),
-            transactionTypesListUseCase = TransactionTypesListUseCase(repository)
+            transactionTypesListUseCase = TransactionTypesListUseCase()
         )
     }
 

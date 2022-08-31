@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import hu.gyuriczaadam.sprintformteszt.R
 import hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen.components.TransparentHintTextField
 import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
+import hu.gyuriczaadam.sprintformteszt.util.UIEvent
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -37,12 +38,12 @@ fun AddEditTransactionScreen(
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when(event) {
-                is AddEditTransactionViewModel.UiEvent.ShowSnackbar -> {
+                is UIEvent.ShowSnackBar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.message
+                        message = event.message.toString()
                     )
                 }
-                is AddEditTransactionViewModel.UiEvent.SaveNote -> {
+                is UIEvent.SaveTransaction -> {
                     navController.navigateUp()
                 }
             }
@@ -85,7 +86,7 @@ fun AddEditTransactionScreen(
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
                 TransparentHintTextField(
                     text = transactionTitleState.text,
-                    hint = transactionTitleState.hint,
+                    hint = transactionTitleState.hint!!,
                     imageVector = Icons.Default.Star,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text
@@ -104,7 +105,7 @@ fun AddEditTransactionScreen(
 
                 TransparentHintTextField(
                     text = transactionTypeState.text,
-                    hint = transactionTypeState.hint,
+                    hint = transactionTypeState.hint!!,
                     imageVector = Icons.Default.Checklist,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text
@@ -122,7 +123,7 @@ fun AddEditTransactionScreen(
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
                 TransparentHintTextField(
                     text = transactionAmountState.text,
-                    hint = transactionAmountState.hint,
+                    hint = transactionAmountState.hint!!,
                     imageVector = Icons.Default.CreditCard,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number

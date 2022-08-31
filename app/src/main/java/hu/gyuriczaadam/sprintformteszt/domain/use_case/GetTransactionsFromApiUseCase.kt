@@ -8,12 +8,10 @@ import okio.IOException
 import hu.gyuriczaadam.sprintformteszt.R
 import hu.gyuriczaadam.sprintformteszt.data.mapper.toTransactionEntity
 import retrofit2.HttpException
-import javax.inject.Inject
 
 class GetTransactionsFromApiUseCase (
     private val repository: TransactionRepository
     ) {
-
     operator fun invoke() = flow {
         try {
             emit(Resource.Loading())

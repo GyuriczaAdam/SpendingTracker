@@ -14,11 +14,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import hu.gyuriczaadam.sprintformteszt.R
+import hu.gyuriczaadam.sprintformteszt.util.UIText
 
 @Composable
 fun TransparentHintTextField(
     text: String,
-    hint: String,
+    hint: UIText,
     imageVector: ImageVector,
     keyboardOptions: KeyboardOptions,
     onValueChange: (String) -> Unit,
@@ -33,7 +34,7 @@ fun TransparentHintTextField(
             singleLine = singleLine,
             textStyle = textStyle,
             label={
-                Text(text = hint)
+                Text(text = hint.asString())
             },
             leadingIcon={
                 Icon(imageVector =imageVector , contentDescription = stringResource(R.string.textfiled_icon_text))

@@ -20,4 +20,17 @@
     <string name="transaction_title_hint">Enter  transaction title...</string>
     <string name="transaction_type_hint">Enter  transaction type...</string>
     <string name="transaction_amount_hint">Enter  transaction amount...</string>
+    <string name="reach_server_error_text">Could not reach the server</string>
+    <string name="error_save_transaction">Could no save transaction</string>
+    <string name="food_type">food</string>
+    <string name="housing_type">housing</string>
+    <string name="travel_type">travel</string>
+    <string name="uitlities_type">uitlities</string>
+    <string name="insurance_type">insurance</string>
+    <string name="healthcare_type">healthcare</string>
+    <string name="financial_type">financial</string>
+    <string name="lifestyle_type">lifestyle</string>
+    <string name="entertainment_type">entertainment</string>
+    <string name="miscellaneous_type">miscellaneous</string>
+    <string name="all_type">all</string>
 </resources>
