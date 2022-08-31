@@ -5,7 +5,7 @@ import hu.gyuriczaadam.sprintformteszt.domain.repositories.TransactionRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetAllTransactionsUseCase @Inject constructor(
+class GetAllTransactionsUseCase (
     private val repository: TransactionRepository
     ) {
     operator fun invoke(): Flow<List<TransactionItem>> {

@@ -10,7 +10,9 @@ import hu.gyuriczaadam.sprintformteszt.data.mapper.toTransactionEntity
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class GetTransactionsFromApiUseCase @Inject constructor(private val repository: TransactionRepository) {
+class GetTransactionsFromApiUseCase (
+    private val repository: TransactionRepository
+    ) {
 
     operator fun invoke() = flow {
         try {

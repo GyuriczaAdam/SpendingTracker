@@ -6,8 +6,7 @@ import hu.gyuriczaadam.sprintformteszt.domain.repositories.TransactionRepository
 import javax.inject.Inject
 import kotlin.jvm.Throws
 
-class InsertTransactionUseCase  @Inject
-constructor(
+class InsertTransactionUseCase  (
     private val repository: TransactionRepository,
     ) {
     //TODO:sTRING RESOURVE

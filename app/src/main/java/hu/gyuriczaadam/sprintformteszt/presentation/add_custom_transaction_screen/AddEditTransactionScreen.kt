@@ -116,6 +116,7 @@ fun AddEditTransactionScreen(
                         viewModel.onEvent(AddEditTransactionEvent.ChangeTransactionTypeFocus(it))
                     },
                     textStyle = MaterialTheme.typography.body1,
+                    singleLine = true
                 )
 
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
@@ -133,6 +134,7 @@ fun AddEditTransactionScreen(
                         viewModel.onEvent(AddEditTransactionEvent.ChangeAmountFocus(it))
                     },
                     textStyle = MaterialTheme.typography.body1,
+                    singleLine = true
                 )
             }
         }

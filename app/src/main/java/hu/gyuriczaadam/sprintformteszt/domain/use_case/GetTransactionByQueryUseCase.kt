@@ -6,8 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 import javax.inject.Inject
 
-class GetTransactionByQueryUseCase
-@Inject constructor(
+class GetTransactionByQueryUseCase(
     private val repository: TransactionRepository
 ) {
     operator fun invoke(
