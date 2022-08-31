@@ -33,11 +33,7 @@ constructor(
     ))
     val transactionTitle:State<TransactionTextFieldState> = _transactionTitle
 
-    var error by mutableStateOf<UIText?>(null)
-        private set
 
-    var hint by mutableStateOf<UIText?>(null)
-        private set
     private val _transactionType = mutableStateOf(TransactionTextFieldState(
         hint = UIText.StringResource(R.string.transaction_type_hint)
     ))
@@ -46,7 +42,7 @@ constructor(
     val currentDate = sdf.format(Date())
     private val _transactionAmount = mutableStateOf(TransactionTextFieldState(
         text = "1",
-        hint = UIText.StringResource(R.string.transaction_type_hint)
+        hint = UIText.StringResource(R.string.transaction_amount_hint)
     ))
     val transactionAmount:State<TransactionTextFieldState> = _transactionAmount
 
