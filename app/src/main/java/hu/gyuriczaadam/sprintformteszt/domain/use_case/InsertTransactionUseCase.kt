@@ -1,30 +1,27 @@
 package hu.gyuriczaadam.sprintformteszt.domain.use_case
 
-import hu.gyuriczaadam.sprintformteszt.data.local.entities.InvalidTransactionException
 import hu.gyuriczaadam.sprintformteszt.data.local.entities.TransactionListEntity
 import hu.gyuriczaadam.sprintformteszt.domain.repositories.TransactionRepository
-import hu.gyuriczaadam.sprintformteszt.util.Constants
-import javax.inject.Inject
-import kotlin.jvm.Throws
+import hu.gyuriczaadam.sprintformteszt.util.Resource
+import hu.gyuriczaadam.sprintformteszt.util.UIText
+import hu.gyuriczaadam.sprintformteszt.R
 
 class InsertTransactionUseCase  (
     private val repository: TransactionRepository,
     ) {
-    //TODO:sTRING RESOURVE
-    @Throws(InvalidTransactionException::class)
-    suspend operator fun invoke(transactionListEntity: TransactionListEntity,transactionTypeList: List<String>){
+    suspend operator fun invoke(transactionListEntity: TransactionListEntity,transactionTypeList: List<String>): Resource<Unit> {
         if(transactionListEntity.summary.isBlank()){
-            throw InvalidTransactionException("The summary of the transaction can't be empty")
+            return Resource.Error(UIText.StringResource(R.string.error_save_transaction))
         }
         if(transactionListEntity.category.isBlank()){
-            throw InvalidTransactionException("There type of the transaction can't be empty")
+            return Resource.Error(UIText.StringResource(R.string.error_save_transaction))
         }
         if(!transactionTypeList.contains(transactionListEntity.category)){
-            throw InvalidTransactionException("There are no transaction type like this")
+            return Resource.Error(UIText.StringResource(R.string.error_save_transaction))
         }
         if(transactionListEntity.sum<=0){
-            throw InvalidTransactionException("The amount of the transaction can't be empty")
+            return Resource.Error(UIText.StringResource(R.string.error_save_transaction))
         }
-        repository.insertTransaction(transactionListEntity)
+       return Resource.Success(repository.insertTransaction(transactionListEntity))
     }
 }

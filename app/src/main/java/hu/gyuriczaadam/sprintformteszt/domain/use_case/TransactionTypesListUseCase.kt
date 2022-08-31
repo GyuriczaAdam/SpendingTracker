@@ -1,8 +1,6 @@
 package hu.gyuriczaadam.sprintformteszt.domain.use_case
 
-import hu.gyuriczaadam.sprintformteszt.domain.repositories.TransactionRepository
 import hu.gyuriczaadam.sprintformteszt.util.Constants
-import javax.inject.Inject
 
 class TransactionTypesListUseCase
      {

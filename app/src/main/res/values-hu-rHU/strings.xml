@@ -23,6 +23,10 @@
     <string name="transaction_amount_hint">Tranzakció összege...</string>
     <string name="reach_server_error_text">Nem sikerült elérni a szervert</string>
     <string name="error_save_transaction">A tranzakció mentése sikertelen</string>
+    <string name="invalid_transaction_type_error_text">Nincs ilyen tipusú tranzakció az adatbázisban</string>
+    <string name="empty_transaction_type_error_text">A tranzakció tipusa nem lehet üres</string>
+    <string name="invalid_transaction_title_error_text">A tranzakció leírása nem lehet üres</string>
+    <string name="null_transaction_amount_error_text">A tranzakció összege nem lehet 0</string>
     <string name="food_type">étel</string>
     <string name="housing_type">lakhatás</string>
     <string name="travel_type">utazás</string>

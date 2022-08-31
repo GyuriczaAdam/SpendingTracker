@@ -1,7 +1,7 @@
 package hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen
 
 
-import androidx.compose.foundation.background
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -10,20 +10,22 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.DpOffset
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import hu.gyuriczaadam.sprintformteszt.R
 import hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen.components.TransparentHintTextField
 import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
 import hu.gyuriczaadam.sprintformteszt.util.UIEvent
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.collect
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddEditTransactionScreen(
     navController: NavController,
@@ -34,18 +36,23 @@ fun AddEditTransactionScreen(
     val transactionAmountState = viewModel.transactionAmount.value
     val transactionTypeState = viewModel.transactionType.value
     val scaffoldState = rememberScaffoldState()
+    val context  = LocalContext.current
+    val keyBoardController = LocalSoftwareKeyboardController.current
 
-    LaunchedEffect(key1 = true) {
-        viewModel.eventFlow.collectLatest { event ->
-            when(event) {
-                is UIEvent.ShowSnackBar -> {
+
+    LaunchedEffect(key1 = keyBoardController){
+        viewModel.uiEvent.collect{ event->
+            when(event){
+                is UIEvent.ShowSnackBar->{
                     scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.message.toString()
+                        message = event.message.asString(context)
                     )
+                    keyBoardController?.hide()
                 }
-                is UIEvent.SaveTransaction -> {
+                is UIEvent.NavigateUp-> {
                     navController.navigateUp()
                 }
+                else ->Unit
             }
         }
     }
@@ -98,7 +105,8 @@ fun AddEditTransactionScreen(
                         viewModel.onEvent(AddEditTransactionEvent.ChangeTransactionTitelFocus(it))
                     },
                     singleLine = true,
-                    textStyle = MaterialTheme.typography.body1
+                    textStyle = MaterialTheme.typography.body1,
+                    context = context
                 )
 
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
@@ -117,7 +125,8 @@ fun AddEditTransactionScreen(
                         viewModel.onEvent(AddEditTransactionEvent.ChangeTransactionTypeFocus(it))
                     },
                     textStyle = MaterialTheme.typography.body1,
-                    singleLine = true
+                    singleLine = true,
+                    context = context
                 )
 
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
@@ -135,7 +144,8 @@ fun AddEditTransactionScreen(
                         viewModel.onEvent(AddEditTransactionEvent.ChangeAmountFocus(it))
                     },
                     textStyle = MaterialTheme.typography.body1,
-                    singleLine = true
+                    singleLine = true,
+                    context = context
                 )
             }
         }

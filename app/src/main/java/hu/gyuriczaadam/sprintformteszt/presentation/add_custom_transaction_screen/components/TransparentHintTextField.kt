@@ -1,5 +1,6 @@
 package hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen.components
 
+import android.content.Context
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
@@ -26,7 +27,8 @@ fun TransparentHintTextField(
     textStyle: TextStyle = TextStyle(),
     singleLine: Boolean = false,
     testTag: String = "",
-    onFocusChange: (FocusState) -> Unit
+    onFocusChange: (FocusState) -> Unit,
+    context: Context
 ) {
         OutlinedTextField(
             value = text,
@@ -34,7 +36,7 @@ fun TransparentHintTextField(
             singleLine = singleLine,
             textStyle = textStyle,
             label={
-                Text(text = hint.asString())
+                Text(text = hint.asString(context))
             },
             leadingIcon={
                 Icon(imageVector =imageVector , contentDescription = stringResource(R.string.textfiled_icon_text))

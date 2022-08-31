@@ -4,8 +4,6 @@ import hu.gyuriczaadam.sprintformteszt.domain.model.TransactionItem
 import hu.gyuriczaadam.sprintformteszt.domain.repositories.TransactionRepository
 import kotlinx.coroutines.flow.Flow
 
-import javax.inject.Inject
-
 class GetTransactionByQueryUseCase(
     private val repository: TransactionRepository
 ) {

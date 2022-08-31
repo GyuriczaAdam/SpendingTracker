@@ -22,6 +22,10 @@
     <string name="transaction_amount_hint">Enter  transaction amount...</string>
     <string name="reach_server_error_text">Could not reach the server</string>
     <string name="error_save_transaction">Could no save transaction</string>
+    <string name="invalid_transaction_type_error_text">There are no transaction type like this</string>
+    <string name="empty_transaction_type_error_text">There type of the transaction cant be empty</string>
+    <string name="invalid_transaction_title_error_text">The summary of the transaction cant be empty</string>
+    <string name="null_transaction_amount_error_text">The amount of the transaction cant be empty"</string>
     <string name="food_type">food</string>
     <string name="housing_type">housing</string>
     <string name="travel_type">travel</string>

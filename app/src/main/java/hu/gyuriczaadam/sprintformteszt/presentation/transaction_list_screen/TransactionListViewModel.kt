@@ -1,15 +1,11 @@
 package hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.gyuriczaadam.sprintformteszt.domain.model.TransactionItem
-import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetAllTransactionsUseCase
-import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionByQueryUseCase
-import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionsFromApiUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.TransactionUseCases
 import hu.gyuriczaadam.sprintformteszt.util.Constants
 import hu.gyuriczaadam.sprintformteszt.util.Resource

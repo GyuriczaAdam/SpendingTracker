@@ -7,7 +7,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hu.gyuriczaadam.sprintformteszt.BuildConfig
-import hu.gyuriczaadam.sprintformteszt.data.local.daos.TransactionDao
 import hu.gyuriczaadam.sprintformteszt.data.local.data_source.TransactionsDatabase
 import hu.gyuriczaadam.sprintformteszt.data.remote.TransactionApi
 import hu.gyuriczaadam.sprintformteszt.data.repository.TransactionRepositoryImpl
