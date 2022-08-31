@@ -11,6 +11,7 @@ import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetAllTransactionsUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionByQueryUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.GetTransactionsFromApiUseCase
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.TransactionUseCases
+import hu.gyuriczaadam.sprintformteszt.util.Constants
 import hu.gyuriczaadam.sprintformteszt.util.Resource
 import hu.gyuriczaadam.sprintformteszt.util.TransactionTypes
 import kotlinx.coroutines.Job
@@ -37,16 +38,16 @@ class TransactionListViewModel @Inject constructor(
                 _state.value = TransactionListState(transactionTypes = event.transactionTypes)
                     when(event.transactionTypes){
                         TransactionTypes.all -> getAllTransactions()
-                        TransactionTypes.food -> getTransactionsByQuery("food",event.transactionTypes)
-                        TransactionTypes.housing -> getTransactionsByQuery("housing",event.transactionTypes)
-                        TransactionTypes.travel -> getTransactionsByQuery("travel",event.transactionTypes)
-                        TransactionTypes.enetertainment -> getTransactionsByQuery("entertainment",event.transactionTypes)
-                        TransactionTypes.financial -> getTransactionsByQuery("financial",event.transactionTypes)
-                        TransactionTypes.healthcare -> getTransactionsByQuery("healthcare",event.transactionTypes)
-                        TransactionTypes.insurance -> getTransactionsByQuery("insurance",event.transactionTypes)
-                        TransactionTypes.lifestyle -> getTransactionsByQuery("lifestyle",event.transactionTypes)
-                        TransactionTypes.miscellaneous -> getTransactionsByQuery("miscellaneous",event.transactionTypes)
-                        TransactionTypes.utilities -> getTransactionsByQuery("utilities",event.transactionTypes)
+                        TransactionTypes.food -> getTransactionsByQuery(Constants.FOOD_TYPE,event.transactionTypes)
+                        TransactionTypes.housing -> getTransactionsByQuery(Constants.HOUSING_TYPE,event.transactionTypes)
+                        TransactionTypes.travel -> getTransactionsByQuery(Constants.TRAVEL_TYPE,event.transactionTypes)
+                        TransactionTypes.enetertainment -> getTransactionsByQuery(Constants.ENTERTAINMENT_TYPE,event.transactionTypes)
+                        TransactionTypes.financial -> getTransactionsByQuery(Constants.FINANCIAL_TYPE,event.transactionTypes)
+                        TransactionTypes.healthcare -> getTransactionsByQuery(Constants.HEALTHCARE_TYPE,event.transactionTypes)
+                        TransactionTypes.insurance -> getTransactionsByQuery(Constants.INSURANCE_TYPE,event.transactionTypes)
+                        TransactionTypes.lifestyle -> getTransactionsByQuery(Constants.LIFESTYLE_TYPE,event.transactionTypes)
+                        TransactionTypes.miscellaneous -> getTransactionsByQuery(Constants.MISCELLANEOUS_TYPE,event.transactionTypes)
+                        TransactionTypes.utilities -> getTransactionsByQuery(Constants.UTILITIES_TYPE,event.transactionTypes)
                     }
             }
             TransactionEvent.ToggleOrderSection -> {
