@@ -2,7 +2,9 @@ package hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_scre
 
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,15 +14,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import hu.gyuriczaadam.sprintformteszt.R
-import hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen.components.TransparentHintTextField
+import hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen.components.OutlinedTextField
+import hu.gyuriczaadam.sprintformteszt.presentation.add_custom_transaction_screen.components.TransactionTypeSpinner
 import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
 import hu.gyuriczaadam.sprintformteszt.util.UIEvent
 import kotlinx.coroutines.flow.collect
@@ -69,10 +74,21 @@ fun AddEditTransactionScreen(
         },
         scaffoldState = scaffoldState
     ) {
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(localSpacing.spaceMedium)
+                .fillMaxWidth()
+                .wrapContentSize()
+                .clip(
+                    RoundedCornerShape(
+                        bottomStart = 50.dp,
+                        bottomEnd = 50.dp
+                    )
+                )
+                .background(MaterialTheme.colors.primary)
+                .padding(
+                    horizontal = localSpacing.spaceMedium,
+                    vertical = localSpacing.spaceMedium
+                )
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -81,17 +97,17 @@ fun AddEditTransactionScreen(
             ) {
                 Text(
                     text = stringResource(R.string.add_edit_screen_title),
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Left,
                     style = MaterialTheme.typography.h2,
-                    color = MaterialTheme.colors.primary
+                    color = MaterialTheme.colors.onPrimary
                 )
             }
             Column(modifier = Modifier
-                .fillMaxSize()
+                .wrapContentSize()
                 .padding(localSpacing.spaceLarge)
             ) {
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
-                TransparentHintTextField(
+               OutlinedTextField(
                     text = transactionTitleState.text,
                     hint = transactionTitleState.hint!!,
                     imageVector = Icons.Default.Star,
@@ -103,6 +119,7 @@ fun AddEditTransactionScreen(
                     },
                     onFocusChange = {
                         viewModel.onEvent(AddEditTransactionEvent.ChangeTransactionTitelFocus(it))
+                        keyBoardController?.hide()
                     },
                     singleLine = true,
                     textStyle = MaterialTheme.typography.body1,
@@ -111,26 +128,17 @@ fun AddEditTransactionScreen(
 
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
 
-                TransparentHintTextField(
-                    text = transactionTypeState.text,
-                    hint = transactionTypeState.hint!!,
-                    imageVector = Icons.Default.Checklist,
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Text
-                    ),
+                TransactionTypeSpinner(options = viewModel.getTransactionTypes() ,
                     onValueChange = {
-                        viewModel.onEvent(AddEditTransactionEvent.EnteredTransactionType(it))
-                    },
-                    onFocusChange = {
-                        viewModel.onEvent(AddEditTransactionEvent.ChangeTransactionTypeFocus(it))
-                    },
-                    textStyle = MaterialTheme.typography.body1,
-                    singleLine = true,
-                    context = context
+                    viewModel.onEvent(AddEditTransactionEvent.EnteredTransactionType(it))
+
+                },
+                    imageVector = Icons.Default.Checklist,
+                    text = transactionTypeState.text
                 )
 
                 Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
-                TransparentHintTextField(
+                OutlinedTextField(
                     text = transactionAmountState.text,
                     hint = transactionAmountState.hint!!,
                     imageVector = Icons.Default.CreditCard,

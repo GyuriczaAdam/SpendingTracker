@@ -11,4 +11,7 @@ interface TransactionRepository {
     suspend fun getTransactionById(id:Int):TransactionListEntity?
     suspend fun insertTransaction(transactionListEntity: TransactionListEntity)
     fun getTransactionsByQuery(query:String):Flow<List<TransactionItem>>
+    suspend fun getSumOfTransactions():Long?
+    suspend fun getSumOfTransactionsByQuery(query: String):Long?
+    suspend fun insertOrIgnoreTransaction(transactionListEntity: TransactionListEntity)
 }

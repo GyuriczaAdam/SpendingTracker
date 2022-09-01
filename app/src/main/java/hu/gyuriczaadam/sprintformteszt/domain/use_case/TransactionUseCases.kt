@@ -6,5 +6,7 @@ data class TransactionUseCases (
     val getTransactionByQueryUseCase: GetTransactionByQueryUseCase,
     val getTransactionsFromApiUseCase: GetTransactionsFromApiUseCase,
     val insertTransactionUseCase: InsertTransactionUseCase,
-    val transactionTypesListUseCase: TransactionTypesListUseCase
+    val transactionTypesListUseCase: TransactionTypesListUseCase,
+    val sumOfTransactionsUseCase: SumOfTransactionsUseCase,
+    val getSumOfTransactionsByQuery: GetSumOfTransactionsByQuery
     )

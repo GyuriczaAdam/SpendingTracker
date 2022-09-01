@@ -1,7 +1,8 @@
 package hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen
 
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,7 +10,6 @@ import hu.gyuriczaadam.sprintformteszt.domain.model.TransactionItem
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.TransactionUseCases
 import hu.gyuriczaadam.sprintformteszt.util.Constants
 import hu.gyuriczaadam.sprintformteszt.util.Resource
-import hu.gyuriczaadam.sprintformteszt.util.TransactionTypes
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -19,10 +19,11 @@ import javax.inject.Inject
 class TransactionListViewModel @Inject constructor(
     private val transactionUseCases: TransactionUseCases
 ):ViewModel() {
-    private val _state = mutableStateOf(TransactionListState())
-    val state:State<TransactionListState> = _state
+    var state by mutableStateOf(TransactionListState())
+        private set
 
     private var getTransactionsJob:Job? = null
+    private var getTransactionsByQueryJob:Job? = null
 
     init {
         getTransactions()
@@ -31,29 +32,51 @@ class TransactionListViewModel @Inject constructor(
     fun onEvent(event: TransactionEvent){
         when(event){
             is TransactionEvent.Order -> {
-                _state.value = TransactionListState(transactionTypes = event.transactionTypes)
+                state = TransactionListState(transactionTypes = event.transactionTypes)
                     when(event.transactionTypes){
-                        TransactionTypes.all -> getAllTransactions()
-                        TransactionTypes.food -> getTransactionsByQuery(Constants.FOOD_TYPE,event.transactionTypes)
-                        TransactionTypes.housing -> getTransactionsByQuery(Constants.HOUSING_TYPE,event.transactionTypes)
-                        TransactionTypes.travel -> getTransactionsByQuery(Constants.TRAVEL_TYPE,event.transactionTypes)
-                        TransactionTypes.enetertainment -> getTransactionsByQuery(Constants.ENTERTAINMENT_TYPE,event.transactionTypes)
-                        TransactionTypes.financial -> getTransactionsByQuery(Constants.FINANCIAL_TYPE,event.transactionTypes)
-                        TransactionTypes.healthcare -> getTransactionsByQuery(Constants.HEALTHCARE_TYPE,event.transactionTypes)
-                        TransactionTypes.insurance -> getTransactionsByQuery(Constants.INSURANCE_TYPE,event.transactionTypes)
-                        TransactionTypes.lifestyle -> getTransactionsByQuery(Constants.LIFESTYLE_TYPE,event.transactionTypes)
-                        TransactionTypes.miscellaneous -> getTransactionsByQuery(Constants.MISCELLANEOUS_TYPE,event.transactionTypes)
-                        TransactionTypes.utilities -> getTransactionsByQuery(Constants.UTILITIES_TYPE,event.transactionTypes)
+                        Constants.ALL_TYPE->{
+                            getAllTransactions()
+                        }
+                        Constants.FOOD_TYPE->{
+                            getTransactionsByQuery(Constants.FOOD_TYPE)
+                        }
+                        Constants.HOUSING_TYPE-> {
+                            getTransactionsByQuery(Constants.HOUSING_TYPE)
+                        }
+                        Constants.TRAVEL_TYPE-> {
+                            getTransactionsByQuery(Constants.TRAVEL_TYPE)
+                        }
+                        Constants.ENTERTAINMENT_TYPE-> {
+                            getTransactionsByQuery(Constants.ENTERTAINMENT_TYPE)
+                        }
+                        Constants.FINANCIAL_TYPE-> {
+                            getTransactionsByQuery(Constants.FINANCIAL_TYPE)
+                        }
+                        Constants.HEALTHCARE_TYPE-> {
+                            getTransactionsByQuery(Constants.HEALTHCARE_TYPE)
+                        }
+                        Constants.INSURANCE_TYPE-> {
+                            getTransactionsByQuery(Constants.INSURANCE_TYPE)
+                        }
+                        Constants.LIFESTYLE_TYPE-> {
+                            getTransactionsByQuery(Constants.LIFESTYLE_TYPE)
+                        }
+                        Constants.MISCELLANEOUS_TYPE-> {
+                            getTransactionsByQuery(Constants.MISCELLANEOUS_TYPE)
+                        }
+                        Constants.UTILITIES_TYPE-> {
+                            getTransactionsByQuery(Constants.UTILITIES_TYPE)
+                        }
                     }
             }
             TransactionEvent.ToggleOrderSection -> {
-                _state.value = TransactionListState(isOrderSectionVisible = !state.value.isOrderSectionVisible , transaction = state.value.transaction, transactionTypes = state.value.transactionTypes)
+                state = TransactionListState(isOrderSectionVisible = !state.isOrderSectionVisible , transaction = state.transaction, transactionTypes = state.transactionTypes, sumOfTransactions = state.sumOfTransactions)
             }
             is TransactionEvent.OnQueryChange -> {
-                _state.value = TransactionListState(query = event.query)
+                state = state.copy(query = event.query)
             }
             TransactionEvent.OnSearch -> {
-                getTransactionsByQuery(state.value.query,state.value.transactionTypes)
+                getTransactionsByQuery(state.query)
             }
             TransactionEvent.OnRefresh -> {
                 getAllTransactions()
@@ -62,36 +85,48 @@ class TransactionListViewModel @Inject constructor(
     }
 
     private fun getTransactions(){
-     val job = transactionUseCases.getTransactionsFromApiUseCase().onEach { result->
+    getTransactionsJob?.cancel()
+    getTransactionsJob = transactionUseCases.getTransactionsFromApiUseCase().onEach { result->
          when(result){
              is Resource.Error -> {
-                 _state.value = TransactionListState(error = result.message.toString())
+                 state = state.copy(
+                     error = result.message.toString()
+                 )
              }
              is Resource.Loading -> {
-                 _state.value = TransactionListState(isLoading = true)
+                 state = state.copy(
+                     isLoading = true
+                 )
              }
              is Resource.Success -> {
-                 _state.value= TransactionListState(transaction = getAllTransactions())
+                 state=   state.copy(
+                     transaction = getAllTransactions(),
+                     isLoading = false
+                 )
                 }
             }
         }.launchIn(viewModelScope)
-        if(job.isCompleted){
-            job.cancel()
-        }
     }
 
   private fun getAllTransactions():List<TransactionItem>{
      getTransactionsJob?.cancel()
      getTransactionsJob = transactionUseCases.getAllTransactionsUseCase().onEach { result->
-            _state.value = TransactionListState(transaction = result)
+            state = state.copy(
+                transaction = result,
+                sumOfTransactions = transactionUseCases.sumOfTransactionsUseCase()!!
+            )
         }.launchIn(viewModelScope)
-      return _state.value.transaction
+      return state.transaction
     }
 
-    private fun getTransactionsByQuery(query:String,transactionTypes: TransactionTypes){
-        getTransactionsJob?.cancel()
-        getTransactionsJob =  transactionUseCases.getTransactionByQueryUseCase(query).onEach { result->
-            _state.value = TransactionListState(transaction = result , transactionTypes =transactionTypes)
+    private fun getTransactionsByQuery(query:String){
+        getTransactionsByQueryJob?.cancel()
+        getTransactionsByQueryJob =  transactionUseCases.getTransactionByQueryUseCase(query).onEach { result->
+            state = state.copy(
+                transaction = result,
+                transactionTypes = query,
+                sumOfTransactions = transactionUseCases.getSumOfTransactionsByQuery(query)!!
+            )
         }.launchIn(viewModelScope)
     }
 }

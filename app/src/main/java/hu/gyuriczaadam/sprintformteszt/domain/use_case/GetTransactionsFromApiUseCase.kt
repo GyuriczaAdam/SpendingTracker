@@ -16,7 +16,7 @@ class GetTransactionsFromApiUseCase (
         try {
             emit(Resource.Loading())
             val transactions = repository.getTransactionsFromApi().map {it.toTransactionEntity()}
-            val transactionsList= transactions.map {repository.insertTransaction(it)}
+            val transactionsList= transactions.map {repository.insertOrIgnoreTransaction(it)}
             emit(Resource.Success(transactionsList))
         }catch (e:HttpException){
             emit(Resource.Error(UIText.DynamicString(e.localizedMessage)))

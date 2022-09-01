@@ -24,8 +24,8 @@ class AddEditTransactionViewModel @Inject
 constructor(
     private val transactionUseCases: TransactionUseCases,
     savedStateHandle: SavedStateHandle,
-
 ):ViewModel(){
+
     private val _transactionTitle = mutableStateOf(TransactionTextFieldState(
         hint = UIText.StringResource(R.string.transaction_title_hint)
     ))
@@ -35,13 +35,15 @@ constructor(
         hint = UIText.StringResource(R.string.transaction_type_hint)
     ))
     val transactionType:State<TransactionTextFieldState> = _transactionType
-    val sdf = SimpleDateFormat("yyyy-MM-dd")
-    val currentDate = sdf.format(Date())
+
     private val _transactionAmount = mutableStateOf(TransactionTextFieldState(
         text = "1",
         hint = UIText.StringResource(R.string.transaction_amount_hint)
     ))
     val transactionAmount:State<TransactionTextFieldState> = _transactionAmount
+
+    val sdf = SimpleDateFormat("yyyy-MM-dd")
+    val currentDate = sdf.format(Date())
 
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
@@ -105,7 +107,6 @@ constructor(
             }
             AddEditTransactionEvent.SaveTransaction -> {
                 viewModelScope.launch {
-
                        val result = transactionUseCases.insertTransactionUseCase(
                             transactionListEntity = TransactionListEntity(
                                 category = transactionType.value.text,
@@ -128,15 +129,16 @@ constructor(
                         is Resource.Success -> {
                             _uiEvent.send(UIEvent.SaveTransaction)
                             _uiEvent.send(UIEvent.NavigateUp)
+                            _uiEvent.send(UIEvent.UpdateSumOfTransactions)
                         }
                         else->Unit
                     }
-
-
-
-
                 }
             }
         }
+    }
+
+    fun getTransactionTypes():List<String>{
+        return  transactionUseCases.transactionTypesListUseCase()
     }
 }

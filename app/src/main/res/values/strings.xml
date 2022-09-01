@@ -26,7 +26,9 @@
     <string name="empty_transaction_type_error_text">There type of the transaction cant be empty</string>
     <string name="invalid_transaction_title_error_text">The summary of the transaction cant be empty</string>
     <string name="null_transaction_amount_error_text">The amount of the transaction cant be empty"</string>
+    <string name="money_spent_string">Total money spent:</string>
     <string name="food_type">food</string>
+    <string name="currency_text">Ft.</string>
     <string name="housing_type">housing</string>
     <string name="travel_type">travel</string>
     <string name="uitlities_type">uitlities</string>

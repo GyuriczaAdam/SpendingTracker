@@ -1,13 +1,11 @@
 package hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen.components
 
-import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Sort
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,15 +24,17 @@ import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
 import hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen.TransactionEvent
 import hu.gyuriczaadam.sprintformteszt.presentation.transaction_list_screen.TransactionListViewModel
 
+
 @Composable
 fun TransactionListScreen(
     navController: NavController,
     viewModel: TransactionListViewModel = hiltViewModel()
 ) {
-    val state = viewModel.state.value
+    val state = viewModel.state
     val localSpacing = LocalSpacing.current
     val scaffoldState = rememberScaffoldState()
     val context  = LocalContext.current
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -53,57 +53,8 @@ fun TransactionListScreen(
     Column(  modifier = Modifier
         .fillMaxSize()
         .padding(18.dp)) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(R.string.app_title_text),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.h2,
-                color = MaterialTheme.colors.primary
-            )
-            IconButton(
-                onClick = {
-                    viewModel.onEvent(TransactionEvent.ToggleOrderSection)
-                },
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Sort,
-                    contentDescription = stringResource(R.string.sort_content_dec)
-                )
-            }
 
-        }
-        AnimatedVisibility(
-            visible = state.isOrderSectionVisible,
-            enter = fadeIn() + slideInVertically(),
-            exit = fadeOut() + slideOutVertically()
-        ) {
-            OrderSection(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp),
-                transactionType = state.transactionTypes,
-                onClick = {
-                    viewModel.onEvent(TransactionEvent.Order(it))
-                },
-                context= context
-            )
-        }
-        Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
-        SearchTextField(
-            text = state.query,
-            hint = stringResource(R.string.transaction_search_text),
-            onValueChange = {
-                viewModel.onEvent(TransactionEvent.OnQueryChange(it))
-            },
-            shouldShowHint = state.isHintVisible,
-            onSearch = {
-                viewModel.onEvent(TransactionEvent.OnSearch)
-            }
-        )
+        TransactionOverViewHeader(viewModel = viewModel, context = context, moneySpentSum =state.sumOfTransactions)
 
         Spacer(modifier = Modifier.height(localSpacing.spaceMedium))
 

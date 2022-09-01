@@ -27,6 +27,8 @@
     <string name="empty_transaction_type_error_text">A tranzakció tipusa nem lehet üres</string>
     <string name="invalid_transaction_title_error_text">A tranzakció leírása nem lehet üres</string>
     <string name="null_transaction_amount_error_text">A tranzakció összege nem lehet 0</string>
+    <string name="money_spent_string">Összesen költött pénz:</string>
+    <string name="currency_text">Ft.</string>
     <string name="food_type">étel</string>
     <string name="housing_type">lakhatás</string>
     <string name="travel_type">utazás</string>

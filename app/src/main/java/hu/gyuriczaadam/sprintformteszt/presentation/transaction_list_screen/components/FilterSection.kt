@@ -4,16 +4,16 @@ import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import hu.gyuriczaadam.sprintformteszt.util.TransactionTypes
 import hu.gyuriczaadam.sprintformteszt.R
 import hu.gyuriczaadam.sprintformteszt.presentation.common.LocalSpacing
+import hu.gyuriczaadam.sprintformteszt.util.Constants
 import hu.gyuriczaadam.sprintformteszt.util.UIText
 
 @Composable
-fun OrderSection(
+fun FilterSection(
     modifier: Modifier = Modifier,
-    transactionType:  TransactionTypes = TransactionTypes.travel,
-    onClick:(TransactionTypes)->Unit,
+    transactionType:  String = Constants.ALL_TYPE,
+    onClick:(String)->Unit,
     context: Context
 ) {
     val localSpacing = LocalSpacing.current
@@ -25,20 +25,20 @@ fun OrderSection(
         ) {
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.housing_type).asString(context),
-                selected = transactionType is TransactionTypes.housing,
-                onSelect = { onClick(TransactionTypes.housing) }
+                selected = transactionType.equals(Constants.HOUSING_TYPE),
+                onSelect = { onClick(Constants.HOUSING_TYPE) }
             )
             Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.food_type).asString(context),
-                selected = transactionType is TransactionTypes.food,
-                onSelect = { onClick(TransactionTypes.food)}
+                selected = transactionType.equals(Constants.FOOD_TYPE),
+                onSelect = { onClick(Constants.FOOD_TYPE) }
             )
             Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.uitlities_type).asString(context),
-                selected = transactionType is TransactionTypes.utilities,
-                onSelect = { onClick(TransactionTypes.utilities)}
+                selected = transactionType.equals(Constants.UTILITIES_TYPE),
+                onSelect = { onClick(Constants.UTILITIES_TYPE) }
             )
         }
         Spacer(modifier = Modifier.height(localSpacing.spaceSmall))
@@ -47,22 +47,20 @@ fun OrderSection(
         ) {
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.travel_type).asString(context),
-                selected = transactionType is TransactionTypes.travel,
-                onSelect = {
-                   onClick(TransactionTypes.travel)
-                }
+                selected = transactionType.equals(Constants.TRAVEL_TYPE),
+                onSelect = { onClick(Constants.TRAVEL_TYPE) }
             )
             Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.insurance_type).asString(context),
-                selected = transactionType is TransactionTypes.insurance,
-                onSelect = { onClick(TransactionTypes.insurance)}
+                selected = transactionType.equals(Constants.INSURANCE_TYPE),
+                onSelect = { onClick(Constants.INSURANCE_TYPE) }
             )
             Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.healthcare_type).asString(context),
-                selected = transactionType is TransactionTypes.healthcare,
-                onSelect = { onClick(TransactionTypes.healthcare)}
+                selected = transactionType.equals(Constants.HEALTHCARE_TYPE),
+                onSelect = { onClick(Constants.HEALTHCARE_TYPE) }
             )
         }
         Row(
@@ -70,22 +68,20 @@ fun OrderSection(
         ) {
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.financial_type).asString(context),
-                selected = transactionType is TransactionTypes.financial,
-                onSelect = {
-                    onClick(TransactionTypes.financial)
-                }
+                selected = transactionType.equals(Constants.FINANCIAL_TYPE),
+                onSelect = { onClick(Constants.FINANCIAL_TYPE) }
             )
             Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.lifestyle_type).asString(context),
-                selected = transactionType is TransactionTypes.lifestyle,
-                onSelect = { onClick(TransactionTypes.lifestyle)}
+                selected = transactionType.equals(Constants.LIFESTYLE_TYPE),
+                onSelect = { onClick(Constants.LIFESTYLE_TYPE) }
             )
             Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.entertainment_type).asString(context),
-                selected = transactionType is TransactionTypes.enetertainment,
-                onSelect = { onClick(TransactionTypes.enetertainment)}
+                selected = transactionType.equals(Constants.ENTERTAINMENT_TYPE),
+                onSelect = { onClick(Constants.ENTERTAINMENT_TYPE) }
             )
         }
         Row(
@@ -93,14 +89,14 @@ fun OrderSection(
         ) {
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.miscellaneous_type).asString(context),
-                selected = transactionType is TransactionTypes.miscellaneous,
-                onSelect = { onClick(TransactionTypes.miscellaneous)}
+                selected = transactionType.equals(Constants.MISCELLANEOUS_TYPE),
+                onSelect = { onClick(Constants.MISCELLANEOUS_TYPE) }
             )
             Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
                 text = UIText.StringResource(R.string.all_type).asString(context),
-                selected = transactionType is TransactionTypes.all,
-                onSelect = { onClick(TransactionTypes.all)}
+                selected = transactionType.equals(Constants.ALL_TYPE),
+                onSelect = { onClick(Constants.ALL_TYPE) }
             )
         }
     }

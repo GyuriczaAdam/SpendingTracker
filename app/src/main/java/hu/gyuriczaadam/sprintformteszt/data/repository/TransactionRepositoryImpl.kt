@@ -37,4 +37,16 @@ class TransactionRepositoryImpl(
             transaction.map { it.toTransacrtionItem() }
         }
     }
+
+    override suspend fun getSumOfTransactions(): Long? {
+        return transactionDao.getSumOfTransactions()
+    }
+
+    override suspend fun getSumOfTransactionsByQuery(query: String): Long? {
+       return transactionDao.getSumOfTransactionsByQuery(query)
+    }
+
+    override suspend fun insertOrIgnoreTransaction(transactionListEntity: TransactionListEntity) {
+        return transactionDao.insertOrIgnoreTransaction(transactionListEntity)
+    }
 }
