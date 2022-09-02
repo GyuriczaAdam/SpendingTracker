@@ -94,6 +94,12 @@ fun FilterSection(
             )
             Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
             DefaultRadioButton(
+                text = UIText.StringResource(R.string.clothing_type).asString(context),
+                selected = transactionType.equals(Constants.CLOTHING_TYPE),
+                onSelect = { onClick(Constants.CLOTHING_TYPE) }
+            )
+            Spacer(modifier = Modifier.width(localSpacing.spaceMicro))
+            DefaultRadioButton(
                 text = UIText.StringResource(R.string.all_type).asString(context),
                 selected = transactionType.equals(Constants.ALL_TYPE),
                 onSelect = { onClick(Constants.ALL_TYPE) }

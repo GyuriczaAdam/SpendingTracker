@@ -1,5 +1,6 @@
 package hu.gyuriczaadam.sprintformteszt.domain.model
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
 data class TransactionItem(
@@ -9,5 +10,6 @@ data class TransactionItem(
     val currency: String,
     val id:Int,
     val type:String,
-    val imageVector: ImageVector
+    val imageVector: ImageVector,
+    val imageColor:Color
 )

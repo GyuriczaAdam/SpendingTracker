@@ -11,14 +11,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Sort
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hu.gyuriczaadam.sprintformteszt.R
@@ -41,30 +38,6 @@ fun TransactionOverViewHeader(
 
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = stringResource(R.string.app_title_text),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h2,
-            color = MaterialTheme.colors.primary
-        )
-        IconButton(
-            onClick = {
-                viewModel.onEvent(TransactionEvent.ToggleOrderSection)
-            },
-        ) {
-            Icon(
-                imageVector = Icons.Default.Sort,
-                contentDescription = stringResource(R.string.sort_content_dec)
-            )
-        }
-
-    }
-
-    Row(
-        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     )
     {
@@ -81,6 +54,18 @@ fun TransactionOverViewHeader(
                 amountTextSize = 40.sp,
                 unitColor = MaterialTheme.colors.primary,
             )
+        }
+        Column {
+            IconButton(
+                onClick = {
+                    viewModel.onEvent(TransactionEvent.ToggleOrderSection)
+                },
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Sort,
+                    contentDescription = stringResource(R.string.sort_content_dec)
+                )
+            }
         }
     }
     AnimatedVisibility(
@@ -115,11 +100,10 @@ fun TransactionOverViewHeader(
 }
 
 fun checkAmount(amount:Long):Color{
-    if(amount<=50000){
-        return Color.Green
-    }else  if(amount<=100000){
-        return Color.Yellow
-    }else{
-        return Color.Red
+    when(true){
+        (amount<10000)->return Color.Green
+        (amount in 10001..49999)-> return Color.Yellow
+        (amount in 50000..200000)->return Color.Red
+        else->return Color.Cyan
     }
 }

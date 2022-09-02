@@ -1,4 +1,4 @@
-package hu.gyuriczaadam.sprintformteszt.domain.use_case
+package hu.gyuriczaadam.sprintformteszt.domain.use_case.get_sum_of_transactions_use_cases
 
 import hu.gyuriczaadam.sprintformteszt.domain.repositories.TransactionRepository
 

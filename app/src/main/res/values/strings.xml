@@ -26,8 +26,14 @@
     <string name="empty_transaction_type_error_text">There type of the transaction cant be empty</string>
     <string name="invalid_transaction_title_error_text">The summary of the transaction cant be empty</string>
     <string name="null_transaction_amount_error_text">The amount of the transaction cant be empty"</string>
+    <string name="transaction_charts_screen_title">Statistics</string>
+    <string name="clothing_type">clothing</string>
+    <string name="max_transaction_name_text">Most money spent on: </string>
+    <string name="money_spent_by_category_text">Money spent on this category: </string>
     <string name="money_spent_string">Total money spent:</string>
     <string name="food_type">food</string>
+    <string name="home_text">Home</string>
+    <string name="stats_text">Statistics</string>
     <string name="currency_text">Ft.</string>
     <string name="housing_type">housing</string>
     <string name="travel_type">travel</string>

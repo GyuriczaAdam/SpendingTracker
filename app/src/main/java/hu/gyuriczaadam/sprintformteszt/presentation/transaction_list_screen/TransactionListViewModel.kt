@@ -16,7 +16,8 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class TransactionListViewModel @Inject constructor(
+class TransactionListViewModel
+@Inject constructor(
     private val transactionUseCases: TransactionUseCases
 ):ViewModel() {
     var state by mutableStateOf(TransactionListState())
@@ -63,6 +64,9 @@ class TransactionListViewModel @Inject constructor(
                         }
                         Constants.MISCELLANEOUS_TYPE-> {
                             getTransactionsByQuery(Constants.MISCELLANEOUS_TYPE)
+                        }
+                        Constants.CLOTHING_TYPE->{
+                            getTransactionsByQuery(Constants.CLOTHING_TYPE)
                         }
                         Constants.UTILITIES_TYPE-> {
                             getTransactionsByQuery(Constants.UTILITIES_TYPE)

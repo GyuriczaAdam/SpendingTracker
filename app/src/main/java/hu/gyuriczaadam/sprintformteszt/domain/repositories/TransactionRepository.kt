@@ -14,4 +14,5 @@ interface TransactionRepository {
     suspend fun getSumOfTransactions():Long?
     suspend fun getSumOfTransactionsByQuery(query: String):Long?
     suspend fun insertOrIgnoreTransaction(transactionListEntity: TransactionListEntity)
+    suspend fun getMaxTransaction():TransactionListEntity?
 }

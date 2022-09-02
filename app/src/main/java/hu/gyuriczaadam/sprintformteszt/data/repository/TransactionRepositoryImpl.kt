@@ -49,4 +49,9 @@ class TransactionRepositoryImpl(
     override suspend fun insertOrIgnoreTransaction(transactionListEntity: TransactionListEntity) {
         return transactionDao.insertOrIgnoreTransaction(transactionListEntity)
     }
+
+    override suspend fun getMaxTransaction(): TransactionListEntity? {
+        return transactionDao.getMaxTransaction()
+    }
+
 }

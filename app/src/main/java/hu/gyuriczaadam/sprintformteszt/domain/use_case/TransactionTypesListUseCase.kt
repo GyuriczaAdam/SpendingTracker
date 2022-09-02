@@ -15,7 +15,9 @@ class TransactionTypesListUseCase
             Constants.FINANCIAL_TYPE,
             Constants.LIFESTYLE_TYPE,
             Constants.ENTERTAINMENT_TYPE,
-            Constants.MISCELLANEOUS_TYPE)
+            Constants.MISCELLANEOUS_TYPE,
+            Constants.CLOTHING_TYPE
+            )
         return transactionTypes
     }
 }

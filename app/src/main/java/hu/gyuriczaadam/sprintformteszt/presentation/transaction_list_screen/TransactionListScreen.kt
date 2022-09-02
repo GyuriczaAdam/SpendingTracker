@@ -77,7 +77,7 @@ fun TransactionListScreen(
                     TrancationItem(transactionItem = transaction, onClick = {
                         navController.navigate(
                             Screen.AddEditTransactionScreen.route+"?transactionId=${transaction.id}"
-                        ) }, modifier = Modifier.fillMaxWidth(),
+                        ) },
                         imageVector = transaction.imageVector
                         )
                 }

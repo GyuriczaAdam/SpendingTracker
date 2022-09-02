@@ -6,9 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import hu.gyuriczaadam.sprintformteszt.data.local.entities.TransactionListEntity
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.toList
 
 @Dao
 interface TransactionDao {
@@ -33,6 +30,10 @@ interface TransactionDao {
 
     @Query("SELECT COALESCE(SUM(sum),0) FROM transactionlistentity WHERE  summary LIKE '%'||:query||'%' OR sum LIKE '%'||:query||'%' OR category LIKE '%'||:query||'%'")
     suspend fun getSumOfTransactionsByQuery(query: String):Long?
+
+    @Query("SELECT * FROM transactionlistentity WHERE sum = (SELECT MAX(sum) FROM transactionlistentity)")
+    suspend fun getMaxTransaction():TransactionListEntity?
+
 
     suspend fun insertOrIgnoreTransaction(transactionListEntity: TransactionListEntity) {
        val transactionsFromDb:List<TransactionListEntity>  = getTransactionsById(transactionListEntity.id!!)

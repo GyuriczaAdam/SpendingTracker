@@ -12,6 +12,13 @@ import hu.gyuriczaadam.sprintformteszt.data.remote.TransactionApi
 import hu.gyuriczaadam.sprintformteszt.data.repository.TransactionRepositoryImpl
 import hu.gyuriczaadam.sprintformteszt.domain.repositories.TransactionRepository
 import hu.gyuriczaadam.sprintformteszt.domain.use_case.*
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.get_sum_of_transactions_use_cases.GetAllTransactionsUseCase
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.get_sum_of_transactions_use_cases.GetMaxTransactionUseCase
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.get_sum_of_transactions_use_cases.GetSumOfTransactionsByQuery
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.get_sum_of_transactions_use_cases.SumOfTransactionsUseCase
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.get_transactions_use_cases.GetTransactionByIdUseCase
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.get_transactions_use_cases.GetTransactionByQueryUseCase
+import hu.gyuriczaadam.sprintformteszt.domain.use_case.get_transactions_use_cases.GetTransactionsFromApiUseCase
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -64,7 +71,8 @@ object AppModule {
             insertTransactionUseCase = InsertTransactionUseCase(repository),
             transactionTypesListUseCase = TransactionTypesListUseCase(),
             sumOfTransactionsUseCase = SumOfTransactionsUseCase(repository),
-            getSumOfTransactionsByQuery = GetSumOfTransactionsByQuery(repository)
+            getSumOfTransactionsByQuery = GetSumOfTransactionsByQuery(repository),
+            getMaxTransactionUseCase = GetMaxTransactionUseCase(repository),
         )
     }
 
